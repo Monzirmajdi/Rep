@@ -432,4 +432,65 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("load", updateNavLogo);
 });
 
+// 1. تحسين زر العودة في المشروع
+function showProjectDetails(category, projectIndex) {
+  // ... (الكود الحالي)
+  
+  // استبدل سطر زر العودة بهذا:
+  modalGallery.innerHTML = `
+    <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
+      <i class="fas fa-arrow-left"></i> Back to Projects
+    </button>
+    <!-- باقي المحتوى -->
+  `;
+}
 
+// 2. إضافة مؤشر التقدم
+function showProjectDetails(category, projectIndex) {
+  // ... (الكود الحالي)
+  
+  // أضف هذا بعد عرض الصور:
+  if (project.images && project.images.length > 0) {
+    const progressIndicator = document.createElement("div");
+    progressIndicator.className = "gallery-progress";
+    progressIndicator.textContent = `1 of ${project.images.length}`;
+    projectImagesGrid.parentNode.insertBefore(progressIndicator, projectImagesGrid.nextSibling);
+    
+    // تحديث المؤشر عند التمرير
+    let currentImage = 1;
+    projectImagesGrid.addEventListener('scroll', () => {
+      const scrollPos = projectImagesGrid.scrollLeft;
+      const imgWidth = projectImagesGrid.firstElementChild.offsetWidth;
+      currentImage = Math.round(scrollPos / imgWidth) + 1;
+      progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
+    });
+  }
+}
+
+// 3. تبديل الوضع الفاتح/الداكن
+document.addEventListener("DOMContentLoaded", () => {
+  // ... (الكود الحالي)
+  
+  // أضف هذا في نهاية الحدث:
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      
+      const icon = themeToggle.querySelector('i');
+      if (document.body.classList.contains('light-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // تحميل التفضيل المحفوظ
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+    }
+  }
+});
