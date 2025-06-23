@@ -306,29 +306,30 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Thank you for your message! I will get back to you soon.");
         contactForm.reset();
     });
-
-    // Light/Dark mode toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('light-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
-        // Load saved preference
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-mode');
-            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+// تبديل الوضع الفاتح للهيرو فقط
+const themeToggle = document.querySelector('.theme-toggle');
+if (themeToggle) {
+    const heroSection = document.querySelector('.hero');
+    
+    themeToggle.addEventListener('click', () => {
+        heroSection.classList.toggle('light-mode');
+        
+        const icon = themeToggle.querySelector('i');
+        if (heroSection.classList.contains('light-mode')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('hero-theme', 'light');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('hero-theme', 'dark');
         }
+    });
+
+    // تحميل التفضيل المحفوظ
+    if (localStorage.getItem('hero-theme') === 'light') {
+        heroSection.classList.add('light-mode');
+        themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
     }
+}
 
     // ... بقية الأكواد الأخرى كما هي ...
 });
