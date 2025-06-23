@@ -895,6 +895,7 @@ body.light-mode .about-text p {
     }
 }
 /* أنماط الوضع الفاتح الكاملة */
+
 /* أنماط الوضع الفاتح الشاملة */
 body.light-mode {
     background-color: #f5f5f5;
@@ -962,6 +963,45 @@ body.light-mode .social-link {
 body.light-mode .social-link:hover {
     background: #f4c430 !important;
 }
+/* أنماط الوضع الفاتح لصفحة المشاريع */
+body.light-mode .project-list-item {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #e0e0e0 !important;
+    color: #333 !important;
+}
+
+body.light-mode .project-list-item h4 {
+    color: #d4a017 !important; /* لون ذهبي للعناوين */
+}
+
+body.light-mode .project-list-item p {
+    color: #555 !important;
+}
+
+body.light-mode .view-project-btn {
+    background: #d4a017 !important;
+    color: #fff !important;
+}
+
+/* أنماط الوضع الفاتح لصفحة تفاصيل المشروع */
+body.light-mode .project-details-container {
+    background: #f9f9f9 !important;
+    color: #333 !important;
+}
+
+body.light-mode .project-details-title {
+    color: #222 !important;
+}
+
+body.light-mode .project-details-description {
+    color: #555 !important;
+}
+
+body.light-mode .gallery-item {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid #ddd !important;
+}
+
 /* تأكد من بقاء العناصر الأخرى داكنة عند عدم تفعيل الوضع الفاتح */
 .modal-content,
 .portfolio,
