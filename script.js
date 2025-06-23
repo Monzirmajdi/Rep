@@ -70,6 +70,79 @@ document.addEventListener("DOMContentLoaded", () => {
             ]
         },
         // ... بقية الفئات كما هي ...
+        "branding": {
+            title: "Brand Identity & Logos",
+            items: [
+                {
+                    title: "تليفوني - متجر للهواتف والاكسسوارات",
+                    description: "تصميم هوية بصرية لمتجر هواتف واكسسوارات",
+                    tools: "Adobe Illustrator, Adobe Photoshop",
+                    previewImage: "images/1000229017.jpg",
+                    images: ["images/1000229017.jpg", "images/1000229016.jpg", "images/1000229023.jpg"]
+                },
+                {
+                    title: "مؤسسة د/أبو ذر الكودة - مؤسسة تعليمية",
+                    description: "تصميم شعار لمؤسسة تعليمية",
+                    tools: "Adobe Illustrator, Adobe Photoshop",
+                    previewImage: "images/1000229023.jpg",
+                    images: ["images/1000229023.jpg", "images/1000229024.jpg"]
+                },
+                {
+                    title: "Nook Nest - محل لبيع الأثاث المنزلي والمكتبي",
+                    description: "تصميم هوية بصرية لمحل أثاث منزلي ومكتبي",
+                    tools: "Adobe Illustrator, Adobe Photoshop",
+                    previewImage: "images/1000229008.jpg",
+                    images: ["images/1000229008.jpg", "images/1000229009.jpg"]
+                },
+                {
+                    title: "JK Arts - شعار لمنشئ محتوى فني",
+                    description: "تصميم شعار لمنشئ محتوى فني",
+                    tools: "Adobe Illustrator, Adobe Photoshop",
+                    previewImage: "images/1000229019.jpg",
+                    images: ["images/1000229019.jpg", "images/1000229020.jpg"]
+                },
+                {
+                    title: "Ratina - براند سوداني للطرح والمنتجات التجميلية",
+                    description: "تصميم هوية بصرية لبراند سوداني للطرح والمنتجات التجميلية",
+                    tools: "Adobe Illustrator, Adobe Photoshop",
+                    previewImage: "images/1000229011.jpg",
+                    images: ["images/1000229011.jpg", "images/1000229012.jpg"]
+                }
+            ]
+        },
+        "ui-ux": {
+            title: "UI/UX Design",
+            items: [
+                {
+                    title: "Mobile App Interface",
+                    description: "Healthcare mobile application design",
+                    tools: "Figma, Adobe XD",
+                    previewImage: "images/placeholder.png", // Placeholder image
+                    images: [] // Add placeholder images if available
+                },
+                {
+                    title: "E-commerce Website",
+                    description: "Complete website design and user experience",
+                    tools: "Figma, Sketch",
+                    previewImage: "images/placeholder.png", // Placeholder image
+                    images: []
+                },
+                {
+                    title: "Dashboard Design",
+                    description: "Admin dashboard for business management",
+                    tools: "Adobe XD, Figma",
+                    previewImage: "images/placeholder.png", // Placeholder image
+                    images: []
+                },
+                {
+                    title: "Landing Page Design",
+                    description: "High-converting landing page layouts",
+                    tools: "Figma, Photoshop",
+                    previewImage: "images/placeholder.png", // Placeholder image
+                    images: []
+                }
+            ]
+        }
     };
 
     // Function to populate card previews
