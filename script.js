@@ -226,44 +226,48 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "hidden";
     }
 
-    function showProjectDetails(category, projectIndex) {
-        const data = portfolioData[category];
-        const project = data.items[projectIndex];
-        if (!project) return;
+   function showProjectDetails(category, projectIndex) {
+  const data = portfolioData[category];
+  const project = data.items[projectIndex];
+  if (!project) return;
 
-        modalTitle.textContent = project.title;
-        modalGallery.innerHTML = `
-            <button id="back-to-projects-btn" class="btn btn-secondary" style="margin-bottom: 20px;">Back to Projects</button>
-            <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
-            <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
-            <div class="project-images-container">
-                <div class="gallery-grid project-images-grid">
-                    <!-- Images will be loaded here -->
-                </div>
-                ${project.images && project.images.length > 5 ? `<button id="show-more-images-btn" class="btn btn-primary" style="margin-top: 20px;">Show More</button>` : ''}
-            </div>
-        `;
+  modalTitle.textContent = project.title;
+  modalGallery.innerHTML = `
+    <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
+      <i class="fas fa-arrow-left"></i> Back to Projects
+    </button>
+    <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
+    <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
+    <div class="project-images-container">
+      <div class="gallery-grid project-images-grid" style="overflow-x: auto; white-space: nowrap;">
+        <!-- Images will be loaded here -->
+      </div>
+    </div>
+    ${project.images && project.images.length > 5 ? `<button id="show-more-images-btn" class="btn btn-primary" style="margin-top: 20px;">Show More</button>` : ''}
+  `;
 
-        const projectImagesGrid = modalGallery.querySelector(".project-images-grid");
-        let imagesToShow = 5;
+  const projectImagesGrid = modalGallery.querySelector(".project-images-grid");
+  let imagesToShow = Math.min(5, project.images?.length || 0);
 
-        function renderImages() {
-            projectImagesGrid.innerHTML = "";
-            if (project.images && project.images.length > 0) {
-                project.images.slice(0, imagesToShow).forEach(imgSrc => {
-                    const imgElement = document.createElement("div");
-                    imgElement.className = "gallery-item"; // Reusing gallery-item for styling
-                    imgElement.innerHTML = `<img src="${imgSrc}" alt="${project.title}" class="gallery-image">`;
-                    projectImagesGrid.appendChild(imgElement);
-                });
-            } else {
-                const placeholder = document.createElement("div");
-                placeholder.className = "gallery-placeholder";
-                placeholder.innerHTML = `<i class="fas fa-image" style="font-size: 2rem; color: #666;"></i>`;
-                projectImagesGrid.appendChild(placeholder);
-            }
-        }
+  function renderImages() {
+    projectImagesGrid.innerHTML = "";
+    if (project.images && project.images.length > 0) {
+      project.images.slice(0, imagesToShow).forEach(imgSrc => {
+        const imgElement = document.createElement("div");
+        imgElement.className = "gallery-item";
+        imgElement.style.display = "inline-block";
+        imgElement.style.width = "300px";
+        imgElement.style.marginRight = "15px";
+        imgElement.innerHTML = `<img src="${imgSrc}" alt="${project.title}" class="gallery-image" style="width:100%;height:auto;">`;
+        projectImagesGrid.appendChild(imgElement);
+      });
+    }
+  }
 
+  renderImages();
+
+  // ... (بقية الكود الحالي)
+}
         renderImages();
 
         const showMoreBtn = document.getElementById("show-more-images-btn");
