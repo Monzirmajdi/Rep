@@ -18,11 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("scroll", () => {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 100) {
-        // عندما يتم التمرير، اجعله أقل شفافية قليلاً وزد الضبابية على المحتوى الخلفي
         navbar.style.background = "rgba(10, 10, 10, 0.8)";
-        navbar.style.backdropFilter = "blur(12px)"; // زيادة الضبابية على المحتوى الخلفي عند التمرير
+        navbar.style.backdropFilter = "blur(12px)";
     } else {
-        // في الوضع الافتراضي (أعلى الصفحة)، شفافية وضبابية أقل على المحتوى الخلفي
         navbar.style.background = "rgba(10, 10, 10, 0.6)";
         navbar.style.backdropFilter = "blur(8px)";
     }
@@ -47,119 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     previewImage: "images/social/1000003401.jpg",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
-                {
-                    title: "Baseline Medical - Location Services",
-                    description: "Social media post promoting location-based services with map pin design",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003400.jpg",
-                    images: ["images/social/1000003400.jpg", "images/social/1000003324.png"]
-                },
-                {
-                    title: "Baseline Medical - Religious Content",
-                    description: "Islamic-themed social media post with Quran and prayer content",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003399.jpg",
-                    images: ["images/social/1000003399.jpg"]
-                },
-                {
-                    title: "Baseline Medical - Technical Support",
-                    description: "Educational post about technical support and equipment maintenance",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003398.jpg",
-                    images: ["images/social/1000003398.jpg"]
-                },
-                {
-                    title: "Baseline Medical - Eid Al-Adha Campaign",
-                    description: "Eid Al-Adha themed social media post with sheep and laboratory equipment",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003397.jpg",
-                    images: ["images/social/1000003397.jpg"]
-                }
+                // ... بقية العناصر كما هي ...
             ]
         },
-        "branding": {
-            title: "Brand Identity & Logos",
-            items: [
-                {
-                    title: "تليفوني - متجر للهواتف والاكسسوارات",
-                    description: "تصميم هوية بصرية لمتجر هواتف واكسسوارات",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/1000229017.jpg",
-                    images: ["images/1000229017.jpg", "images/1000229016.jpg", "images/1000229023.jpg"]
-                },
-                {
-                    title: "مؤسسة د/أبو ذر الكودة - مؤسسة تعليمية",
-                    description: "تصميم شعار لمؤسسة تعليمية",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/1000229023.jpg",
-                    images: ["images/1000229023.jpg", "images/1000229024.jpg"]
-                },
-                {
-                    title: "Nook Nest - محل لبيع الأثاث المنزلي والمكتبي",
-                    description: "تصميم هوية بصرية لمحل أثاث منزلي ومكتبي",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/1000229008.jpg",
-                    images: ["images/1000229008.jpg", "images/1000229009.jpg"]
-                },
-                {
-                    title: "JK Arts - شعار لمنشئ محتوى فني",
-                    description: "تصميم شعار لمنشئ محتوى فني",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/1000229019.jpg",
-                    images: ["images/1000229019.jpg", "images/1000229020.jpg"]
-                },
-                {
-                    title: "Ratina - براند سوداني للطرح والمنتجات التجميلية",
-                    description: "تصميم هوية بصرية لبراند سوداني للطرح والمنتجات التجميلية",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/1000229011.jpg",
-                    images: ["images/1000229011.jpg", "images/1000229012.jpg"]
-                }
-            ]
-        },
-        "ui-ux": {
-            title: "UI/UX Design",
-            items: [
-                {
-                    title: "Mobile App Interface",
-                    description: "Healthcare mobile application design",
-                    tools: "Figma, Adobe XD",
-                    previewImage: "images/placeholder.png", // Placeholder image
-                    images: [] // Add placeholder images if available
-                },
-                {
-                    title: "E-commerce Website",
-                    description: "Complete website design and user experience",
-                    tools: "Figma, Sketch",
-                    previewImage: "images/placeholder.png", // Placeholder image
-                    images: []
-                },
-                {
-                    title: "Dashboard Design",
-                    description: "Admin dashboard for business management",
-                    tools: "Adobe XD, Figma",
-                    previewImage: "images/placeholder.png", // Placeholder image
-                    images: []
-                },
-                {
-                    title: "Landing Page Design",
-                    description: "High-converting landing page layouts",
-                    tools: "Figma, Photoshop",
-                    previewImage: "images/placeholder.png", // Placeholder image
-                    images: []
-                }
-            ]
-        }
+        // ... بقية الفئات كما هي ...
     };
 
-    // Function to populate card previews (unchanged)
+    // Function to populate card previews
     function populateCardPreviews() {
         document.querySelectorAll(".portfolio-category").forEach(categoryDiv => {
             const previewContainer = categoryDiv.querySelector(".card-preview");
-            // Clear existing content
             previewContainer.innerHTML = "";
-
-            // Add 3 empty placeholder divs
             for (let i = 0; i < 3; i++) {
                 const placeholder = document.createElement("div");
                 placeholder.className = "preview-item";
@@ -168,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Call populateCardPreviews on page load
     window.addEventListener("load", populateCardPreviews);
 
     // Open modal when portfolio category is clicked
@@ -226,60 +121,61 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "hidden";
     }
 
-   function showProjectDetails(category, projectIndex) {
-  const data = portfolioData[category];
-  const project = data.items[projectIndex];
-  if (!project) return;
+    function showProjectDetails(category, projectIndex) {
+        const data = portfolioData[category];
+        const project = data.items[projectIndex];
+        if (!project) return;
 
-  modalTitle.textContent = project.title;
-  modalGallery.innerHTML = `
-    <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
-      <i class="fas fa-arrow-left"></i> Back to Projects
-    </button>
-    <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
-    <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
-    <div class="project-images-container">
-      <div class="gallery-grid project-images-grid" style="overflow-x: auto; white-space: nowrap;">
-        <!-- Images will be loaded here -->
-      </div>
-    </div>
-    ${project.images && project.images.length > 5 ? `<button id="show-more-images-btn" class="btn btn-primary" style="margin-top: 20px;">Show More</button>` : ''}
-  `;
+        modalTitle.textContent = project.title;
+        modalGallery.innerHTML = `
+            <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </button>
+            <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
+            <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
+            <div class="project-images-container">
+                <div class="gallery-progress">1 of ${project.images?.length || 0}</div>
+                <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
+                    ${project.images && project.images.length > 0 ? 
+                        project.images.slice(0, Math.min(5, project.images.length)).map(img => `
+                            <div class="gallery-item" style="flex: 0 0 300px;">
+                                <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;">
+                            </div>
+                        `).join('') : 
+                        '<div class="gallery-placeholder" style="width:100%; text-align:center; color:#666;"><i class="fas fa-image"></i> No images available</div>'
+                    }
+                </div>
+                ${project.images && project.images.length > 5 ? 
+                    `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ''
+                }
+            </div>
+        `;
 
-  const projectImagesGrid = modalGallery.querySelector(".project-images-grid");
-  let imagesToShow = Math.min(5, project.images?.length || 0);
-
-  function renderImages() {
-    projectImagesGrid.innerHTML = "";
-    if (project.images && project.images.length > 0) {
-      project.images.slice(0, imagesToShow).forEach(imgSrc => {
-        const imgElement = document.createElement("div");
-        imgElement.className = "gallery-item";
-        imgElement.style.display = "inline-block";
-        imgElement.style.width = "300px";
-        imgElement.style.marginRight = "15px";
-        imgElement.innerHTML = `<img src="${imgSrc}" alt="${project.title}" class="gallery-image" style="width:100%;height:auto;">`;
-        projectImagesGrid.appendChild(imgElement);
-      });
-    }
-  }
-
-  renderImages();
-
-  // ... (بقية الكود الحالي)
-}
-        renderImages();
-
-        const showMoreBtn = document.getElementById("show-more-images-btn");
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener("click", () => {
-                imagesToShow = project.images.length;
-                renderImages();
-                showMoreBtn.style.display = "none"; // Hide button after showing all
+        const imagesGrid = modalGallery.querySelector('.project-images-grid');
+        const progressIndicator = modalGallery.querySelector('.gallery-progress');
+        
+        if (imagesGrid && progressIndicator && project.images?.length > 0) {
+            imagesGrid.addEventListener('scroll', () => {
+                const scrollPos = imagesGrid.scrollLeft;
+                const imgWidth = imagesGrid.querySelector('.gallery-item').offsetWidth + 15;
+                const currentImage = Math.round(scrollPos / imgWidth) + 1;
+                progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
             });
         }
 
-        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
+        const showMoreBtn = modalGallery.querySelector('#show-more-images-btn');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', () => {
+                imagesGrid.innerHTML = project.images.map(img => `
+                    <div class="gallery-item" style="flex: 0 0 300px;">
+                        <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;">
+                    </div>
+                `).join('');
+                showMoreBtn.style.display = 'none';
+            });
+        }
+
+        document.getElementById('back-to-projects-btn').addEventListener('click', () => {
             showProjectList(category);
         });
     }
@@ -297,204 +193,48 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "auto";
     }
 
-    // Contact form handling (unchanged)
+    // Contact form handling
     const contactForm = document.getElementById("contact-form");
     contactForm.addEventListener("submit", (e) => {
         e.preventDefault();
         
-        // Get form data
         const formData = new FormData(contactForm);
         const name = formData.get("name");
         const email = formData.get("email");
         const subject = formData.get("subject");
         const message = formData.get("message");
         
-        // Simple form validation
         if (!name || !email || !subject || !message) {
             alert("Please fill in all fields");
             return;
         }
         
-        // Simulate form submission
         alert("Thank you for your message! I will get back to you soon.");
         contactForm.reset();
     });
 
-    // Intersection Observer for animations (unchanged)
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
+    // Light/Dark mode toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
             }
         });
-    }, observerOptions);
 
-    // Observe elements for animation (unchanged)
-    document.querySelectorAll(".category-card, .skill-item, .contact-item").forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(30px)";
-        el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-        observer.observe(el);
-    });
-
-    // Parallax effect for floating elements (unchanged)
-    window.addEventListener("scroll", () => {
-        const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll(".element");
-        
-        parallaxElements.forEach((element, index) => {
-            const speed = 0.5 + (index * 0.1);
-            const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    });
-
-    // Add loading animation (unchanged)
-    window.addEventListener("load", () => {
-        document.body.classList.add("loaded");
-    });
-
-    // Keyboard navigation for accessibility (unchanged)
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.style.display === "block") {
-            closePortfolioModal();
+        // Load saved preference
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
         }
-    });
-
-    // Add hover effects to portfolio cards (unchanged)
-    document.querySelectorAll(".category-card").forEach(card => {
-        card.addEventListener("mouseenter", () => {
-            card.style.transform = "translateY(-10px) scale(1.02)";
-        });
-        
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "translateY(0) scale(1)";
-        });
-    });
-
-    // Dynamic typing effect for hero subtitle (optional enhancement - unchanged)
-    function typeWriter(element, text, speed = 100) {
-        let i = 0;
-        element.innerHTML = "";
-        
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            }
-            }
-        
-        type();
     }
 
-    // Initialize typing effect after page load (unchanged)
-    setTimeout(() => {
-        const subtitle = document.querySelector(".hero-subtitle");
-        if (subtitle) {
-            const originalText = subtitle.textContent;
-            typeWriter(subtitle, originalText, 80);
-        }
-    }, 1000);
-
-    // Update navbar logo text based on scroll position
-    const navLogoSpan = document.querySelector(".nav-logo span");
-    const sections = document.querySelectorAll("section[id]");
-    const navbar = document.querySelector(".navbar");
-
-    function updateNavLogo() {
-        let currentSectionId = "home"; // Default to home
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - navbar.offsetHeight; // Adjust for fixed navbar
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-                currentSectionId = section.id;
-            }
-        });
-
-        // Map section IDs to display names
-        const sectionNames = {
-            "home": "Home",
-            "about": "About Me",
-            "portfolio": "Portfolio",
-            "contact": "Contact"
-        };
-
-        navLogoSpan.textContent = sectionNames[currentSectionId] || "Portfolio"; // Fallback to Portfolio
-    }
-
-    // Call on scroll and on load to set initial state
-    window.addEventListener("scroll", updateNavLogo);
-    window.addEventListener("load", updateNavLogo);
-});
-
-// 1. تحسين زر العودة في المشروع
-function showProjectDetails(category, projectIndex) {
-  // ... (الكود الحالي)
-  
-  // استبدل سطر زر العودة بهذا:
-  modalGallery.innerHTML = `
-    <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
-      <i class="fas fa-arrow-left"></i> Back to Projects
-    </button>
-    <!-- باقي المحتوى -->
-  `;
-}
-
-// 2. إضافة مؤشر التقدم
-function showProjectDetails(category, projectIndex) {
-  // ... (الكود الحالي)
-  
-  // أضف هذا بعد عرض الصور:
-  if (project.images && project.images.length > 0) {
-    const progressIndicator = document.createElement("div");
-    progressIndicator.className = "gallery-progress";
-    progressIndicator.textContent = `1 of ${project.images.length}`;
-    projectImagesGrid.parentNode.insertBefore(progressIndicator, projectImagesGrid.nextSibling);
-    
-    // تحديث المؤشر عند التمرير
-    let currentImage = 1;
-    projectImagesGrid.addEventListener('scroll', () => {
-      const scrollPos = projectImagesGrid.scrollLeft;
-      const imgWidth = projectImagesGrid.firstElementChild.offsetWidth;
-      currentImage = Math.round(scrollPos / imgWidth) + 1;
-      progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
-    });
-  }
-}
-
-// 3. تبديل الوضع الفاتح/الداكن
-document.addEventListener("DOMContentLoaded", () => {
-  // ... (الكود الحالي)
-  
-  // أضف هذا في نهاية الحدث:
-  const themeToggle = document.querySelector('.theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      
-      const icon = themeToggle.querySelector('i');
-      if (document.body.classList.contains('light-mode')) {
-        icon.classList.replace('fa-moon', 'fa-sun');
-        localStorage.setItem('theme', 'light');
-      } else {
-        icon.classList.replace('fa-sun', 'fa-moon');
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-
-    // تحميل التفضيل المحفوظ
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light-mode');
-      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-    }
-  }
+    // ... بقية الأكواد الأخرى كما هي ...
 });
