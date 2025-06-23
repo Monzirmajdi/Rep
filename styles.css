@@ -1,4 +1,3 @@
-
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -16,6 +15,7 @@ body {
     color: #ffffff;
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -29,8 +29,8 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.6); /* تم التعديل هنا: شفافية أولية */
-    backdrop-filter: blur(8px); /* تم التعديل هنا: ضبابية أولية */
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -49,6 +49,7 @@ body {
     font-size: 24px;
     font-weight: 700;
     color: #f4c430;
+    transition: all 0.3s ease;
 }
 
 .nav-menu {
@@ -476,63 +477,6 @@ body {
     color: #f4c430;
 }
 
-.modal-header {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.gallery-item {
-    background: #2a2a2a;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.05);
-}
-
-/* Gallery Images Styles */
-.gallery-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.gallery-image {
-    width: 100%;
-    height: auto; /* Allow height to adjust based on aspect ratio */
-    max-height: 300px; /* Optional: Set a max height to prevent excessively tall images */
-    object-fit: contain; /* Ensure the entire image is visible */
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.gallery-image:hover {
-    transform: scale(1.05);
-}
-
-.gallery-placeholder {
-    width: 100%;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-}
-
 /* Contact Section */
 .contact {
     padding: 120px 0;
@@ -607,11 +551,6 @@ body {
     outline: none;
     border-color: #f4c430;
     box-shadow: 0 0 0 2px rgba(244, 196, 48, 0.2);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #999;
 }
 
 /* Footer */
@@ -694,6 +633,152 @@ body {
     60% {
         transform: translateY(-5px);
     }
+}
+
+/* Project List Styles */
+.project-list-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.project-list-item:hover {
+    transform: translateY(-5px);
+}
+
+.project-list-item h4 {
+    margin-bottom: 10px;
+    color: #f4c430;
+}
+
+.project-list-item p {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.view-project-btn {
+    background: #f4c430;
+    color: #0a0a0a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-project-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(244, 196, 48, 0.3);
+}
+
+.project-images-container {
+    margin-top: 30px;
+}
+
+.project-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.project-images-grid .gallery-item {
+    padding: 0;
+    background: transparent;
+}
+
+.project-images-grid .gallery-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.project-preview-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* التعديلات الجديدة */
+/* 1. زر العودة المحسن */
+#back-to-projects-btn {
+    background: #f4c430;
+    color: #0a0a0a;
+    padding: 12px 25px;
+    margin: 0 auto 30px;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#back-to-projects-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(244, 196, 48, 0.4);
+}
+
+/* 2. مؤشر التقدم */
+.gallery-progress {
+    text-align: center;
+    color: #f4c430;
+    margin: 15px 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* 3. تبديل الوضع الفاتح/الداكن */
+.theme-toggle {
+    cursor: pointer;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(244, 196, 48, 0.2);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    color: #f4c430;
+}
+
+/* أنماط الوضع الفاتح */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+body.light-mode .navbar {
+    background: rgba(245, 245, 245, 0.9) !important;
+}
+
+body.light-mode .nav-link {
+    color: #333;
+}
+
+body.light-mode .hero {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+}
+
+body.light-mode .section-title,
+body.light-mode .card-title {
+    color: #222;
+}
+
+body.light-mode .card-description,
+body.light-mode .about-text p {
+    color: #555;
 }
 
 /* Responsive Design */
@@ -809,116 +894,3 @@ body {
         right: 15px;
     }
 }
-
-
-
-
-/* New styles for project list and details in modal */
-.project-list-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-}
-
-.project-list-item:hover {
-    transform: translateY(-5px);
-}
-
-.project-list-item h4 {
-    margin-bottom: 10px;
-    color: #f4c430;
-}
-
-.project-list-item p {
-    color: #ccc;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-.view-project-btn {
-    background: #f4c430;
-    color: #0a0a0a;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.view-project-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(244, 196, 48, 0.3);
-}
-
-.project-images-container {
-    margin-top: 30px;
-}
-
-.project-images-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.project-images-grid .gallery-item {
-    padding: 0;
-    background: transparent;
-}
-
-.project-images-grid .gallery-image {
-    width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover; /* Cover the area, cropping if necessary */
-    border-radius: 8px;
-}
-
-#back-to-projects-btn, #show-more-images-btn {
-    margin-top: 20px;
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Responsive adjustments for project details */
-@media (max-width: 768px) {
-    .project-images-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .project-list-item {
-        padding: 20px;
-    }
-    .project-images-grid {
-        grid-template-columns: 1fr;
-    }
-    .project-images-grid .gallery-image {
-        height: auto;
-    }
-}
-
-
-
-
-
-
-.project-preview-image {
-    width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover; /* Cover the area, cropping if necessary */
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-
-
-/* Smooth transition for navbar logo text */
-.nav-logo span {
-    transition: all 0.3s ease;
-}
-
