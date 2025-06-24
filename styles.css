@@ -798,8 +798,8 @@ body.light-mode .about-text p {
 
 .project-image {
     width: 100%;
-    height: 180px;
-    object-fit: contain;
+    height: 100%;
+    object-fit: contain;/* كانت ١٨٠ انا غيرتا هنا
 }
 /* أنماط الـ Grid الجديدة */
 .modal-gallery-grid {
