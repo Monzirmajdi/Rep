@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentCategory = null;
 
     // ------ استبدال الدالة - بداية ------
+// ------ استبدال الدالة - بداية ------
 function showProjectList(category) {
     const data = portfolioData[category];
     modalTitle.textContent = data.title;
