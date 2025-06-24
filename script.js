@@ -174,25 +174,47 @@ document.addEventListener("DOMContentLoaded", () => {
 // ------ استبدال الدالة - بداية ------
 function showProjectList(category) {
     const data = portfolioData[category];
+    if (!data) return;
+
     modalTitle.textContent = data.title;
-    
-    modalGallery.innerHTML = `
-        <div class="modal-gallery-grid">
-            ${data.items.map((item, index) => `
-                <div class="project-card" onclick="showProjectDetails('${category}', ${index})">
+    modalGallery.innerHTML = '';
+
+    if (data.items.length === 0) {
+        modalGallery.innerHTML = `
+            <div class="empty-category">
+                <i class="fas fa-folder-open"></i>
+                <h3>No projects yet</h3>
+            </div>
+        `;
+    } else {
+        const gridContainer = document.createElement('div');
+        gridContainer.className = 'modal-gallery-grid';
+
+        data.items.forEach((item, index) => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.innerHTML = `
+                <div class="image-container">
                     <img src="${item.previewImage}" 
-                         alt="${item.title}" 
-                         class="project-image">
+                         alt="${item.title}"
+                         class="project-image"
+                         onerror="this.src='images/placeholder.png'">
+                </div>
+                <div class="project-info">
                     <h3>${item.title}</h3>
                     <p>${item.description.substring(0, 60)}...</p>
                 </div>
-            `).join('')}
-        </div>
-    `;
-    
+            `;
+            projectCard.addEventListener('click', () => {
+                showProjectDetails(category, index);
+            });
+            gridContainer.appendChild(projectCard);
+        });
+
+        modalGallery.appendChild(gridContainer);
+    }
     modal.style.display = "block";
 }
-// ------ استبدال الدالة - نهاية ------
 
     function showProjectDetails(category, projectIndex) {
         const data = portfolioData[category];
