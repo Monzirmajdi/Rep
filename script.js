@@ -170,50 +170,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentCategory = null;
 
-    function showProjectList(category) {
-        currentCategory = category;
-        const data = portfolioData[category];
-        if (!data) return;
-
-        modalTitle.textContent = data.title;
-        modalGallery.innerHTML = "";
-
-        if (data.items.length === 0) {
-            const emptyMessage = document.createElement("div");
-            emptyMessage.className = "empty-category";
-            emptyMessage.innerHTML = `
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                    <h3 style="color: #f4c430; margin-bottom: 10px;">Coming Soon</h3>
-                    <p>Projects in this category will be added soon.</p>
+    // ------ استبدال الدالة - بداية ------
+function showProjectList(category) {
+    const data = portfolioData[category];
+    modalTitle.textContent = data.title;
+    
+    modalGallery.innerHTML = `
+        <div class="modal-gallery-grid">
+            ${data.items.map((item, index) => `
+                <div class="project-card" onclick="showProjectDetails('${category}', ${index})">
+                    <img src="${item.previewImage}" 
+                         alt="${item.title}" 
+                         class="project-image">
+                    <h3>${item.title}</h3>
+                    <p>${item.description.substring(0, 60)}...</p>
                 </div>
-            `;
-            modalGallery.appendChild(emptyMessage);
-        } else {
-            data.items.forEach((item, index) => {
-                const projectListItem = document.createElement("div");
-                projectListItem.className = "project-list-item";
-                projectListItem.innerHTML = `
-                    <img src="${item.previewImage}" alt="${item.title}" class="project-preview-image">
-                    <h4 style="margin-bottom: 10px; color: #f4c430;">${item.title}</h4>
-                    <p style="color: #ccc; font-size: 0.9rem;">${item.description}</p>
-                    <p style="color: #999; font-size: 0.8rem;"><strong>Tools:</strong> ${item.tools}</p>
-                    <button class="view-project-btn" data-project-index="${index}">View Project</button>
-                `;
-                modalGallery.appendChild(projectListItem);
-            });
-
-            document.querySelectorAll(".view-project-btn").forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    const projectIndex = parseInt(e.target.dataset.projectIndex);
-                    showProjectDetails(currentCategory, projectIndex);
-                });
-            });
-        }
-
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
-    }
+            `).join('')}
+        </div>
+    `;
+    
+    modal.style.display = "block";
+}
+// ------ استبدال الدالة - نهاية ------
 
     function showProjectDetails(category, projectIndex) {
         const data = portfolioData[category];
