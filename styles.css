@@ -1264,3 +1264,9 @@ body.modal-open {
     margin-bottom: 20px;
     color: #f4c430;
 }
+.gallery-item {
+    background: #f0f0f0; /* للوضع الفاتح */
+}
+body.dark-mode .gallery-item {
+    background: #333; /* للوضع الداكن */
+}
