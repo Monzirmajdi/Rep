@@ -780,7 +780,28 @@ body.light-mode .card-description,
 body.light-mode .about-text p {
     color: #555;
 }
+/* ------ إضافة جديدة - بداية ------ */
+/* أنماط الـ Grid في المودال */
+.modal-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
 
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    height: 100%;
+}
+
+.project-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+}
+/* ------ إضافة جديدة - نهاية ------ */
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
