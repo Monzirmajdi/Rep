@@ -1270,3 +1270,42 @@ body.modal-open {
 body.dark-mode .gallery-item {
     background: #333; /* للوضع الداكن */
 }
+/* أنماط معرض الصور الخاص بفيسبوك */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* مقاسات فيسبوك الرسمية */
+.gallery-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+/* نسب فيسبوك المحددة */
+.gallery-image.landscape {
+    aspect-ratio: 1.91 / 1; /* منشور عام */
+}
+
+.gallery-image.portrait {
+    aspect-ratio: 9 / 16; /* ستوري/رييلز */
+}
+
+.gallery-image.square {
+    aspect-ratio: 1 / 1; /* صورة مربعة */
+}
+
+.gallery-image:hover {
+    transform: scale(1.02);
+}
