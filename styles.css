@@ -1264,3 +1264,16 @@ body.modal-open {
     margin-bottom: 20px;
     color: #f4c430;
 }
+.gallery-item {
+  flex: 0 0 30% !important; /* عرض مرن بنسبة 30% من الحاوية */
+  min-width: 250px; /* أدنى حد للعرض */
+  max-width: 400px; /* أقصى حد للعرض */
+  transition: all 0.3s ease; /* تأثير سلس عند تغيير الحجم */
+}
+
+.gallery-image {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+  border-radius: 8px;
+}
