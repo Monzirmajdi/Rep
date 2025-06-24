@@ -240,9 +240,24 @@ function showProjectList(category) {
                         '<div class="gallery-placeholder" style="width:100%; text-align:center; color:#666;"><i class="fas fa-image"></i> No images available</div>'
                     }
                 </div>
-                ${project.images && project.images.length > 5 ? 
-                    `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ''
-                }
+                function showProjectDetails(category, projectIndex) {
+    const project = portfolioData[category].items[projectIndex];
+    
+    modalGallery.innerHTML = `
+        <button id="back-to-projects-btn" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> رجوع
+        </button>
+        <h3>${project.title}</h3>
+        <p class="project-description">${project.description}</p>
+        <div class="gallery-grid">
+            ${project.images.map(img => `
+                <div class="gallery-item">
+                    <img src="${img}" alt="${project.title}" class="gallery-image">
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
             </div>
         `;
 
