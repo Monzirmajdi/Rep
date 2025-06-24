@@ -42,28 +42,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/Untitled25_20250624103335_iTfhYyz073.png",
+                    previewImage: "images/Untitled25_20250624105002.png",
                     images: ["images/social/1000003401.jpg", "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003401.jpg",
+                    previewImage: "images/social/Untitled25_20250624105002.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003401.jpg",
+                    previewImage: "images/social/Untitled25_20250624105002.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/1000003401.jpg",
+                    previewImage: "images/social/Untitled25_20250624105002.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 }
                 // ... بقية العناصر كما هي ...
