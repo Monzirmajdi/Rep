@@ -233,8 +233,8 @@ function showProjectList(category) {
                 <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
                     ${project.images && project.images.length > 0 ? 
                         project.images.slice(0, Math.min(5, project.images.length)).map(img => `
-                            <div class="gallery-item" style="flex: 0 0 300px;">
-                                <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;">
+                            <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
+                                <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;">
                             </div>
                         `).join('') : 
                         '<div class="gallery-placeholder" style="width:100%; text-align:center; color:#666;"><i class="fas fa-image"></i> No images available</div>'
