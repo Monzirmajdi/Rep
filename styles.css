@@ -800,6 +800,32 @@ body.light-mode .about-text p {
     gap: 20px;
     padding: 20px;
 }
+/* أنماط العنصر النائب للصور المفقودة في المعرض */
+.gallery-placeholder {
+    width: 100%;
+    min-height: 200px; /* **مهم جداً:** اجعل الارتفاع هذا مشابهاً لارتفاع صور المعرض */
+    display: flex; /* استخدم flexbox لتوسيط المحتوى */
+    align-items: center; /* توسيط عمودي */
+    justify-content: center; /* توسيط أفقي */
+    text-align: center;
+    color: #666; /* لون النص الافتراضي */
+    background-color: #222; /* خلفية خفيفة للعنصر النائب */
+    border-radius: 8px; /* نفس حواف الصور */
+    font-size: 1.2em; /* حجم خط مناسب */
+    flex-direction: column; /* لجعل الأيقونة والنص فوق بعض */
+    gap: 10px; /* مسافة بين الأيقونة والنص */
+}
+
+.gallery-placeholder i {
+    font-size: 2em; /* حجم أكبر للأيقونة */
+    margin-bottom: 5px; /* مسافة تحت الأيقونة */
+}
+
+/* لأنماط الوضع الفاتح */
+body.light-mode .gallery-placeholder {
+    background-color: #f0f0f0;
+    color: #999;
+}
 
 .project-card {
     background: rgba(255, 255, 255, 0.05);
