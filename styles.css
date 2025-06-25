@@ -451,7 +451,7 @@ body {
 }
 
 .modal-content {
-    background-color: #1a1a1a;
+    
     margin: 5% auto;
     padding: 40px;
     border-radius: 20px;
@@ -931,6 +931,42 @@ body.light-mode .gallery-placeholder {
         transition: 0.3s;
         padding-top: 50px;
     }
+/* أنماط الوضع الفاتح للمودال ومحتوياتها */
+body.light-mode .modal {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* خلفية مودال فاتحة شفافة */
+}
+
+body.light-mode .modal-content {
+    background-color: #f9f9f9 !important; /* خلفية محتوى المودال فاتحة */
+    color: #333 !important; /* لون النص داخل المودال يصبح داكناً */
+}
+    /* أنماط الوضع الفاتح للمودال ومحتوياتها */
+body.light-mode .modal {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* خلفية مودال فاتحة شفافة */
+}
+
+body.light-mode .modal-content {
+    background-color: #f9f9f9 !important; /* خلفية محتوى المودال فاتحة */
+    color: #333 !important; /* لون النص داخل المودال يصبح داكناً */
+}
+/* التعديلات لضمان ظهور القائمة الجانبية وزر الإغلاق في الوضع الفاتح على الشاشات الصغيرة */
+
+/* أنماط القائمة الجانبية (side menu) في الوضع الفاتح */
+@media (max-width: 768px) {
+    body.light-mode .nav-menu {
+        background-color: rgba(248, 249, 250, 0.95) !important; /* خلفية فاتحة للقائمة */
+        /* تأكد من أن لون الروابط داخل القائمة مناسب للخلفية الفاتحة */
+    }
+    body.light-mode .nav-menu .nav-link {
+        color: #333 !important; /* لون داكن للروابط داخل القائمة */
+    }
+}
+
+/* أنماط أشرطة أيقونة الهامبرغر/الكروس في الوضع الفاتح */
+body.light-mode .bar {
+    background: #333 !important; /* لون داكن لأشرطة الأيقونة */
+}
+
 
     .nav-menu.active {
         left: 0;
