@@ -849,6 +849,64 @@ body.light-mode .about-text p {
 }
 /* ------ إضافة جديدة - نهاية ------ */
 /* Responsive Design */
+/* تحسينات لأنماط المودال */
+.modal-content {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* مؤشر التحميل */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 2rem;
+    color: #f4c430;
+}
+
+/* تحسينات لبطاقات المشاريع */
+.project-card {
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a !important;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-description {
+    color: #ccc; 
+    margin-bottom: 10px; 
+    font-size: 1rem;
+}
+
+.project-tools {
+    color: #999; 
+    margin-bottom: 20px; 
+    font-size: 0.9rem;
+}
+
+/* للوضع الفاتح */
+body.light-mode .image-container {
+    background: #f0f0f0 !important;
+}
+
+body.light-mode .project-description {
+    color: #555 !important;
+}
+
+body.light-mode .project-tools {
+    color: #777 !important;
+}
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
