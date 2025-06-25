@@ -36,8 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // دالة لتحديث المحتوى بسلاسة
     function updateContentWithFade(element, newHTML, callback) {
         element.classList.remove("show");
+        // Get the computed transition duration to ensure the timeout matches the CSS transition
         const transitionDuration = parseFloat(getComputedStyle(element).transitionDuration) * 1000;
 
+        // Use a timeout that matches the fade-out transition duration
         setTimeout(() => {
             element.innerHTML = newHTML;
             element.classList.add("show");
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 element.addEventListener("transitionend", function handler() {
                     element.removeEventListener("transitionend", handler);
                     callback();
-                });
+                }, {once: true}); // Use {once: true} to automatically remove the listener after it fires
             }
         }, transitionDuration);
     }
