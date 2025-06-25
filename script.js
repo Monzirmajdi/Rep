@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "<div class=\"gallery-placeholder\" style=\"width:100%; text-align:center; color:#666;\"><i class=\"fas fa-image\"></i> No images available</div>"
                     }
                 </div>
-                ${project.images && project.images.length > 5 ? 
+                ${project.images && project.images.length > 20 ? 
                     `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ""
                 }
             </div>
