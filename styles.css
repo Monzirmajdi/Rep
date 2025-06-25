@@ -769,244 +769,398 @@ body {
     color: #f4c430;
 }
 
-
-/* NEW: Light Mode Styles */
+/* أنماط الوضع الفاتح */
 body.light-mode {
-    background-color: #f0f2f5; /* Light background */
-    color: #333333; /* Darker text */
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 body.light-mode .navbar {
-    background: rgba(255, 255, 255, 0.8); /* Lighter navbar */
-    backdrop-filter: blur(8px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: rgba(245, 245, 245, 0.9) !important;
 }
 
-body.light-mode .nav-logo span,
 body.light-mode .nav-link {
-    color: #333333; /* Dark text for nav items */
-}
-
-body.light-mode .nav-link:hover {
-    color: #f4c430; /* Highlight color */
-}
-
-body.light-mode .nav-link::after {
-    background: #f4c430;
-}
-
-body.light-mode .hamburger .bar {
-    background: #333333; /* Dark hamburger icon */
-}
-
-body.light-mode .theme-toggle {
-    background: rgba(0, 0, 0, 0.05); /* Light toggle background */
-}
-
-body.light-mode .theme-toggle i {
-    color: #333333; /* Dark icon in light mode */
+    color: #333;
 }
 
 body.light-mode .hero {
-    background: linear-gradient(135deg, #ffffff 0%, #f0f2f5 100%); /* Lighter hero background */
-    color: #333333;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
 }
 
-body.light-mode .hero-subtitle {
-    color: #666666; /* Slightly darker subtitle */
+body.light-mode .section-title,
+body.light-mode .card-title {
+    color: #222;
 }
 
-body.light-mode .btn-primary {
-    background: linear-gradient(45deg, #f4c430, #ffd700);
-    color: #0a0a0a;
+body.light-mode .card-description,
+body.light-mode .about-text p {
+    color: #555;
+}
+/* ------ إضافة جديدة - بداية ------ */
+/* أنماط الـ Grid في المودال */
+.modal-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+/* أنماط العنصر النائب للصور المفقودة في المعرض */
+.gallery-placeholder {
+    width: 100%;
+    min-height: 200px; /* **مهم جداً:** اجعل الارتفاع هذا مشابهاً لارتفاع صور المعرض */
+    display: flex;
+    /* استخدم flexbox لتوسيط المحتوى */
+    align-items: center; /* توسيط عمودي */
+    justify-content: center;
+    /* توسيط أفقي */
+    text-align: center;
+    color: #666;
+    /* لون النص الافتراضي */
+    background-color: #222;
+    /* خلفية خفيفة للعنصر النائب */
+    border-radius: 8px;
+    /* نفس حواف الصور */
+    font-size: 1.2em; /* حجم خط مناسب */
+    flex-direction: column;
+    /* لجعل الأيقونة والنص فوق بعض */
+    gap: 10px;
+    /* مسافة بين الأيقونة والنص */
+}
+
+.gallery-placeholder i {
+    font-size: 2em;
+    /* حجم أكبر للأيقونة */
+    margin-bottom: 5px;
+    /* مسافة تحت الأيقونة */
+}
+
+/* لأنماط الوضع الفاتح */
+body.light-mode .gallery-placeholder {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    height: 100%;
+}
+
+.project-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+}
+/* أنماط الـ Grid الجديدة */
+.modal-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+/* أنماط إضافية لتحسين عرض الصور ومنع الوميض */
+.modal-gallery-grid img {
+    display: block;
+    /* يضمن أن الصورة تأخذ كامل المساحة المتاحة */
+    width: 100%;
+    /* يضمن أن الصورة تملأ عرض الحاوية */
+    height: auto;
+    /* يحافظ على نسبة العرض إلى الارتفاع */
+    object-fit: cover;
+    /* لضمان تغطية الصورة للمساحة المحددة */
+    transition: opacity 0.3s ease-in-out;
+    /* إضافة انتقال لظهور الصورة */
+}
+
+/* هذا سيخفي الصورة مبدئياً ويظهرها تدريجياً بعد التحميل */
+.modal-gallery-grid img:not([src]):not([srcset]) {
+    opacity: 0;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(244, 196, 48, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.project-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(244, 196, 48, 0.1);
+}
+
+.project-info {
+    padding: 15px;
+}
+
+.project-info h4 {
+    color: #f4c430;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.project-info p {
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+/* ------ إضافة جديدة - نهاية ------ */
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: #1a1a1a;
+        width: 100%;
+        height: calc(100vh - 70px);
+        text-align: center;
+        transition: 0.3s;
+        padding-top: 50px;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 25px 0;
+    }
+
+    .hamburger {
+        display: flex;
+        z-index: 1001;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        margin-bottom: 50px;
+    }
+
+    .hero-visual {
+        height: 300px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .about-content {
+        padding: 0 15px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+        padding: 30px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        padding: 12px 25px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .close {
+        top: 10px;
+        right: 15px;
+    }
+}
+/* أنماط الوضع الفاتح الكاملة */
+
+/* أنماط الوضع الفاتح الشاملة */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+body.light-mode .navbar {
+    background: rgba(245, 245, 245, 0.9) !important;
+    backdrop-filter: blur(12px);
+}
+
+body.light-mode .nav-link,
+body.light-mode .hero-title,
+body.light-mode .hero-subtitle,
+body.light-mode .section-title,
+body.light-mode .card-title,
+body.light-mode .about-text h2,
+body.light-mode .contact-details h4,
+body.light-mode .footer-text {
+    color: #222 !important;
+}
+
+body.light-mode .hero {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%) !important;
 }
 
 body.light-mode .btn-secondary {
-    background: transparent;
-    border-color: #333333; /* Darker border */
-    color: #333333; /* Darker text */
+    border-color: #333 !important;
+    color: #333 !important;
 }
 
 body.light-mode .btn-secondary:hover {
-    background: #333333;
-    color: #ffffff;
+    background: #333 !important;
+    color: #fff !important;
 }
 
-/* Floating elements in Hero section - Ensure they are not blacked out if that's not the intent */
-/* Assuming element-1, element-2, element-3 might be images */
-/* Remove filter if present in inline style in index.html for element-2, element-3 if they were made black */
-body.light-mode .element-1,
-body.light-mode .element-2,
-body.light-mode .element-3 {
-    filter: none; /* Remove any filter applied for dark mode */
-}
-
-/* Re-add filter for specific elements if they need to be dark in light mode, as per original index.txt */
-/* These rules were originally in index.txt <style> tag */
-/* If the user wants element-2 and element-3 specifically black in light mode,
-   these should be kept as in index.txt or moved here.
-   Assuming they meant to turn them black, I will keep the original intent for those.
-   The filter: brightness(0) was already there in index.txt. If it's problematic, user must explicitly state.
-   For now, I'm making sure general elements don't get blacked out unless specified.
-   I will REMOVE the filter:brightness(0) from `index.txt` in the next step to prevent conflict and simplify.
-   For now, I'll provide a more generic 'filter: none' so it doesn't accidentally apply to other images.
-*/
-
-
-body.light-mode .section-header .section-title {
-    color: #333333; /* Dark text for section titles */
-}
-
-body.light-mode .section-header .section-line {
-    background: linear-gradient(45deg, #f4c430, #ffd700); /* Keep accent color */
-}
-
-body.light-mode .about {
-    background: #ffffff; /* Lighter about section */
-}
-
-body.light-mode .about-text p {
-    color: #555555; /* Darker text for about section */
-}
-
-body.light-mode .skill-item {
-    background: #f9f9f9; /* Lighter skill item background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .skill-item i {
-    color: #f4c430; /* Accent color for icons */
-}
-
-body.light-mode .skill-item span {
-    color: #333333; /* Dark text for skill names */
-}
-
-body.light-mode .portfolio {
-    background: #f0f2f5; /* Lighter portfolio background */
-}
-
-body.light-mode .category-card {
-    background: #ffffff; /* Lighter card background */
-    border: 1px solid #e0e0e0; /* Lighter border */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .category-card::before {
-    background: linear-gradient(90deg, transparent, rgba(244, 196, 48, 0.1), transparent);
-}
-
-body.light-mode .card-title {
-    color: #333333; /* Dark card title */
-}
-
-body.light-mode .card-description {
-    color: #666666; /* Dark card description */
-}
-
-body.light-mode .preview-item {
-    background: rgba(0, 0, 0, 0.05); /* Light preview item background */
-}
-
-body.light-mode .card-btn {
-    background: transparent;
-    border-color: #f4c430;
-    color: #f4c430;
-}
-
-body.light-mode .card-btn:hover {
-    background: #f4c430;
-    color: #ffffff;
-}
-
-body.light-mode .modal-content {
-    background-color: #ffffff; /* Lighter modal background */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-body.light-mode .modal-content h3, /* For modal project details title */
-body.light-mode .modal-content p, /* For modal project details text */
-body.light-mode .modal-content ul,
-body.light-mode .modal-content li {
-    color: #333333; /* Dark text inside modal */
-}
-
-body.light-mode .modal-content .close {
-    color: #666; /* Darker close button */
-}
-
-body.light-mode .contact {
-    background: #ffffff; /* Lighter contact section */
-}
-
-body.light-mode .contact-details h4 {
-    color: #333333; /* Dark text */
-}
-
-body.light-mode .contact-details p {
-    color: #666666; /* Darker text */
-}
-
-body.light-mode .contact-form {
-    background: #f9f9f9; /* Lighter form background */
-    border: 1px solid #e0e0e0; /* Lighter border */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .form-group input,
-body.light-mode .form-group textarea {
-    background: #ffffff; /* White input background */
-    border: 1px solid #ddd; /* Lighter input border */
-    color: #333333; /* Dark input text */
-}
-
-body.light-mode .form-group input::placeholder,
-body.light-mode .form-group textarea::placeholder {
-    color: #999999; /* Lighter placeholder text */
-}
-
-body.light-mode .footer {
-    background: #f0f2f5; /* Lighter footer background */
-    border-top: 1px solid #e0e0e0; /* Lighter footer border */
-}
-
+body.light-mode .card-description,
+body.light-mode .about-text p,
+body.light-mode .contact-details p,
 body.light-mode .footer-text p {
-    color: #666666; /* Darker footer text */
+    color: #555 !important;
+}
+
+body.light-mode .about,
+body.light-mode .portfolio,
+body.light-mode .contact,
+body.light-mode .footer {
+    background-color: #f0f0f0 !important;
+    border-color: #ddd !important;
+}
+
+body.light-mode .skill-item,
+body.light-mode .category-card,
+body.light-mode .contact-form,
+body.light-mode .project-list-item {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-color: #ddd !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 body.light-mode .social-link {
-    background: rgba(0, 0, 0, 0.05); /* Light social link background */
-    color: #333333; /* Dark social link icon */
+    background: rgba(0, 0, 0, 0.05) !important;
 }
 
 body.light-mode .social-link:hover {
-    background: #f4c430;
-    color: #ffffff;
+    background: #f4c430 !important;
 }
-
-/* Project List specific light mode styles */
+/* أنماط الوضع الفاتح لصفحة المشاريع */
 body.light-mode .project-list-item {
-    background: #ffffff; /* Lighter background for project list items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #e0e0e0 !important;
+    color: #333 !important;
 }
 
 body.light-mode .project-list-item h4 {
-    color: #333333; /* Darker title in project list item */
+    color: #d4a017 !important;
+    /* لون ذهبي للعناوين */
 }
 
 body.light-mode .project-list-item p {
-    color: #666666; /* Darker description in project list item */
+    color: #555 !important;
 }
 
-body.light-mode .gallery-progress {
-    color: #333333; /* Darker text for gallery progress */
+body.light-mode .view-project-btn {
+    background: #d4a017 !important;
+    color: #fff !important;
 }
 
-/* Ensure images themselves are not hidden by light mode styles */
-/* These specific rules should NOT make images black or transparent in light mode */
-body.light-mode .project-preview-image,
-body.light-mode .project-images-grid .gallery-image {
-    filter: none; /* Ensure no filter makes them black */
-    opacity: 1;   /* Ensure they are fully visible */
+/* أنماط الوضع الفاتح لصفحة تفاصيل المشروع */
+body.light-mode .project-details-container {
+    background: #f9f9f9 !important;
+    color: #333 !important;
 }
 
+body.light-mode .project-details-title {
+    color: #222 !important;
+}
+
+body.light-mode .project-details-description {
+    color: #555 !important;
+}
+
+body.light-mode .gallery-item {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid #ddd !important;
+}
+/* ======= أنماط الوضع الفاتح الشاملة ======= */
+body.light-mode {
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+}
+
+/* أنماط الشريط العلوي */
+body.light-mode .navbar {
+    background: rgba(248, 249, 250, 0.95) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* أنماط الروابط */
+body.light-mode .nav-link {
+    color: #333 !important;
+}
+
+/* أنماط الأقسام الرئيسية */
+body.light-mode .about,
+body.light-mode .portfolio,
+body.light-mode .contact {
+    background-color: #f1f1f1 !important;
+}
+
+/* أنماط بطاقات المشاريع */
+body.light...
