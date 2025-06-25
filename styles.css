@@ -461,6 +461,18 @@ body {
     overflow-y: auto;
     position: relative;
 }
+/* New: Smooth fade for the entire modal */
+#portfolio-modal {
+    opacity: 0; /* ابدأ بشفافية كاملة */
+    visibility: hidden; /* اخفيها تماماً من العرض */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* أضف انتقال للشفافية والرؤية */
+}
+
+#portfolio-modal.show-modal {
+    opacity: 1; /* اجعلها مرئية بالكامل */
+    visibility: visible; /* اجعلها ظاهرة */
+}
+
 
 .close {
     color: #aaa;
