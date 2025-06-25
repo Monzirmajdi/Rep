@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "<div class=\"gallery-placeholder\" style=\"width:100%; text-align:center; color:#666;\"><i class=\"fas fa-image\"></i> No images available</div>"
                     }
                 </div>
-                ${project.images && project.images.length > 5 ? 
+                ${project.images && project.images.length > 10 ? //عدلتا هنا كان ٥
                     `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ""
                 }
             </div>
@@ -293,8 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (showMoreBtn) {
                 showMoreBtn.addEventListener("click", () => {
                     imagesGrid.innerHTML = project.images.map(img => `
-                        <div class="gallery-item" style="flex: 0 0 300px;">
-                            <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;" loading="lazy">
+                        <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
+                            <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto; border-radius:8px;" loading="lazy">
                         </div>
                     `).join("");
                     showMoreBtn.style.display = "none";
