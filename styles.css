@@ -1227,3 +1227,13 @@ body.light-mode .bar {
     background: #333 !important; /* لون داكن لأشرطة الأيقونة */
 }
 
+body.light-mode .modal {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* يجعل الخلفية بيضاء شفافة */
+    backdrop-filter: blur(5px) !important; /* للحفاظ على تأثير التمويه */
+}
+
+/* وأيضاً تأكد من وجود هذه القواعد لمحتوى المودال نفسه */
+body.light-mode .modal-content {
+    background-color: #f9f9f9 !important; /* خلفية محتوى المودال فاتحة */
+    color: #333 !important; /* لون النص داخل المودال يصبح داكناً */
+}
