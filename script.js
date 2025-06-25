@@ -231,7 +231,10 @@ document.addEventListener("DOMContentLoaded", () => {
             htmlContent = `<div class="modal-gallery-grid">${gridItems}</div>`;
         }
         
-        modal.style.display = "block"; // Show modal immediately
+        modal.style.display = "block"; // اجعلها "block" أولاً للسماح بالانتقال
+void modal.offsetWidth; // هذا يجبر المتصفح على إعادة حساب التخطيط لتفعيل الانتقال
+modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأثير التلاشي للظهور
+ // Show modal immediately
         updateContentWithFade(modalGallery, htmlContent, () => {
             // Reattach event listeners after content is updated and visible
             document.querySelectorAll(".project-card").forEach(card => {
@@ -274,7 +277,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             </div>
         `;
-        modal.style.display = "block"; // Show modal immediately
+        modal.style.display = "block"; // اجعلها "block" أولاً للسماح بالانتقال
+void modal.offsetWidth; // هذا يجبر المتصفح على إعادة حساب التخطيط لتفعيل الانتقال
+modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأثير التلاشي للظهور
+// Show modal immediately
         updateContentWithFade(modalGallery, htmlContent, () => {
             // Reattach event listeners after content is updated and visible
             const imagesGrid = modalGallery.querySelector(".project-images-grid");
@@ -309,12 +315,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Close modal
     closeModal.addEventListener("click", () => {
-        modal.style.display = "none";
+        modal.classList.remove("show-modal"); // ابدأ تأثير التلاشي للاختفاء
+// احصل على مدة الانتقال من CSS لضمان إخفائها بعد الانتهاء
+const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
+setTimeout(() => {
+    modal.style.display = "none"; // اخفها تماماً بعد انتهاء التلاشي
+}, modalTransitionDuration);
+
     });
 
     window.addEventListener("click", (event) => {
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.classList.remove("show-modal"); // ابدأ تأثير التلاشي للاختفاء
+// احصل على مدة الانتقال من CSS لضمان إخفائها بعد الانتهاء
+const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
+setTimeout(() => {
+    modal.style.display = "none"; // اخفها تماماً بعد انتهاء التلاشي
+}, modalTransitionDuration);
+
         }
     });
 });
