@@ -269,7 +269,8 @@ modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأ
                                 <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;" loading="lazy">
                             </div>
                         `).join("") : 
-                        "<div class=\"gallery-placeholder\" style=\"width:100%; text-align:center; color:#666;\"><i class=\"fas fa-image\"></i> No images available</div>"
+                        "<div class=\"gallery-placeholder\"><i class=\"fas fa-image\"></i> No images available</div>"
+
                     }
                 </div>
                 ${project.images && project.images.length > 20 ? 
