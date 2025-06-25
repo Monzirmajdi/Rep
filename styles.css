@@ -1261,4 +1261,39 @@ body.light-mode .social-link:hover {
     background: #f4c430 !important; /* لون الخلفية عند التحويم */
     color: #0a0a0a !important; /* لون الأيقونة عند التحويم */
 }
+/* أنماط حقول إدخال بيانات الاتصال في الوضع الفاتح */
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: #fff !important; /* خلفية بيضاء للحقول */
+    border: 1px solid #ddd !important; /* حدود فاتحة */
+    color: #333 !important; /* لون النص المدخل يصبح داكناً */
+}
+
+/* أنماط لون النص الافتراضي (Placeholder) في الوضع الفاتح */
+body.light-mode .form-group input::placeholder,
+body.light-mode .form-group textarea::placeholder {
+    color: #888 !important; /* لون النص الافتراضي يصبح رمادياً داكناً */
+    opacity: 1 !important; /* ضمان أن النص الافتراضي لا يكون شفافاً جداً */
+}
+
+/* لأنماط متصفحات معينة (للتوافق) */
+body.light-mode .form-group input::-webkit-input-placeholder,
+body.light-mode .form-group textarea::-webkit-input-placeholder {
+    color: #888 !important;
+}
+
+body.light-mode .form-group input::-moz-placeholder,
+body.light-mode .form-group textarea::-moz-placeholder {
+    color: #888 !important;
+}
+
+body.light-mode .form-group input:-ms-input-placeholder,
+body.light-mode .form-group textarea:-ms-input-placeholder {
+    color: #888 !important;
+}
+
+body.light-mode .form-group input::placeholder-shown,
+body.light-mode .form-group textarea::placeholder-shown {
+    color: #888 !important;
+}
 
