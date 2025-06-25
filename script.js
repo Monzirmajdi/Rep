@@ -1,33 +1,101 @@
-// Hamburger menu functionality
+// Hamburger menu functionality & all other DOMContentLoaded related scripts
 document.addEventListener("DOMContentLoaded", () => {
+    // Hamburger menu
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".nav-menu");
 
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-    });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
 
-    document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
-    }));
-});
-
-// Navbar background on scroll
-window.addEventListener("scroll", () => {
-    const navbar = document.querySelector(".navbar");
-    if (window.scrollY > 100) {
-        navbar.style.background = "rgba(10, 10, 10, 0.8)";
-        navbar.style.backdropFilter = "blur(12px)";
-    } else {
-        navbar.style.background = "rgba(10, 10, 10, 0.6)";
-        navbar.style.backdropFilter = "blur(8px)";
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
     }
-});
 
-// Portfolio Modal Functionality
-document.addEventListener("DOMContentLoaded", () => {
+    // Dynamic Navbar Title on Scroll (تم نقل هذا الجزء هنا)
+    const navLogoSpan = document.querySelector(".nav-logo span");
+    const sections = document.querySelectorAll("section[id]");
+
+    const sectionTitles = {
+        "home": "Home",
+        "about": "About",
+        "portfolio": "Portfolio",
+        "contact": "Contact"
+    };
+
+    function updateNavLogoTitle() {
+        let currentSectionId = "home"; // Default to home
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                currentSectionId = section.id;
+            }
+        });
+
+        if (navLogoSpan) { // تأكد من وجود العنصر قبل التعديل
+            navLogoSpan.textContent = sectionTitles[currentSectionId];
+        }
+    }
+
+    // استدعاء الدالة عند تحميل الصفحة لتحديد العنوان الأولي
+    updateNavLogoTitle();
+    // استدعاء الدالة عند التمرير
+    window.addEventListener("scroll", updateNavLogoTitle);
+
+    // Typing effect for Hero Subtitle (تم إضافة هذا الجزء هنا)
+    const heroSubtitle = document.querySelector(".hero-subtitle");
+    const textToType = "Graphic Designer & Visual Artist";
+    let charIndex = 0;
+    let isTypingComplete = false;
+
+    if (heroSubtitle) {
+        heroSubtitle.textContent = ""; // ابدأ بنص فارغ
+        heroSubtitle.style.opacity = 1; // اجعله مرئياً
+        heroSubtitle.style.animation = 'none'; // أوقف الـ fadeInUp إذا كان يتعارض
+        typeWriter();
+    }
+
+    function typeWriter() {
+        if (!isTypingComplete && charIndex < textToType.length) {
+            heroSubtitle.textContent += textToType.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 70); // سرعة الكتابة (مللي ثانية)
+        } else {
+            isTypingComplete = true;
+        }
+    }
+
+    // Theme toggle functionality (تم دمجها هنا)
+    const themeToggle = document.querySelector(".theme-toggle");
+    const body = document.body;
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const icon = themeToggle.querySelector("i");
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('page-theme', 'light');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('page-theme', 'dark');
+            }
+        });
+
+        // تحميل التفضيل المحفوظ عند بدء التشغيل
+        if (localStorage.getItem('page-theme') === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+    }
+
+    // Portfolio Modal Functionality (هذا الجزء كان موجوداً بالفعل وتم الاحتفاظ به)
     const modal = document.getElementById("portfolio-modal");
     const closeModal = document.querySelector(".modal .close");
     const modalTitle = document.getElementById("modal-title");
@@ -63,34 +131,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png",
-                    images: ["images/social/1000003401.jpg", "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
+                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
+                    images: ["images/social/1000003401.jpg", "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png",
+                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png",
+                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 },
                 {
                     title: "Baseline Medical - Eid Mubarak Campaign",
                     description: "Eid greeting social media post for Baseline Medical with mosque imagery",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png",
+                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
                     images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
                 }
-                // ... بقية العناصر كما هي ...
             ]
         },
-        // ... بقية الفئات كما هي ...
         "branding": {
             title: "Brand Identity & Logos",
             items: [
@@ -145,28 +211,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     title: "Mobile App Interface",
                     description: "Healthcare mobile application design",
                     tools: "Figma, Adobe XD",
-                    previewImage: "images/placeholder.png", // Placeholder image
-                    images: [] // Add placeholder images if available
+                    previewImage: "images/placeholder.png",
+                    images: []
                 },
                 {
                     title: "E-commerce Website",
                     description: "Complete website design and user experience",
                     tools: "Figma, Sketch",
-                    previewImage: "images/placeholder.png", // Placeholder image
+                    previewImage: "images/placeholder.png",
                     images: []
                 },
                 {
                     title: "Dashboard Design",
                     description: "Admin dashboard for business management",
                     tools: "Adobe XD, Figma",
-                    previewImage: "images/placeholder.png", // Placeholder image
+                    previewImage: "images/placeholder.png",
                     images: []
                 },
                 {
                     title: "Landing Page Design",
                     description: "High-converting landing page layouts",
                     tools: "Figma, Photoshop",
-                    previewImage: "images/placeholder.png", // Placeholder image
+                    previewImage: "images/placeholder.png",
                     images: []
                 }
             ]
@@ -216,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const gridItems = data.items.map((item, index) => `
                 <div class="project-card" data-category="${category}" data-index="${index}">
                     <div class="image-container">
-                        <img src="${item.previewImage}" 
+                        <img src="${item.previewImage}"
                              alt="${item.title}"
                              class="project-image"
                              onerror="this.src=\'images/placeholder.png\'"
@@ -230,13 +296,11 @@ document.addEventListener("DOMContentLoaded", () => {
             `).join("");
             htmlContent = `<div class="modal-gallery-grid">${gridItems}</div>`;
         }
-        
-        modal.style.display = "block"; // اجعلها "block" أولاً للسماح بالانتقال
-void modal.offsetWidth; // هذا يجبر المتصفح على إعادة حساب التخطيط لتفعيل الانتقال
-modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأثير التلاشي للظهور
- // Show modal immediately
+
+        modal.style.display = "block";
+        void modal.offsetWidth;
+        modal.classList.add("show-modal");
         updateContentWithFade(modalGallery, htmlContent, () => {
-            // Reattach event listeners after content is updated and visible
             document.querySelectorAll(".project-card").forEach(card => {
                 card.addEventListener("click", (e) => {
                     const cat = e.currentTarget.dataset.category;
@@ -253,7 +317,7 @@ modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأ
         if (!project) return;
 
         modalTitle.textContent = project.title;
-        
+
         let htmlContent = `
             <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
                 <i class="fas fa-arrow-left"></i> Back to Projects
@@ -263,30 +327,27 @@ modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأ
             <div class="project-images-container">
                 <div class="gallery-progress">1 of ${project.images?.length || 0}</div>
                 <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
-                    ${project.images && project.images.length > 0 ? 
+                    ${project.images && project.images.length > 0 ?
                         project.images.map(img => `
                             <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
                                 <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;" loading="lazy">
                             </div>
-                        `).join("") : 
+                        `).join("") :
                         "<div class=\"gallery-placeholder\"><i class=\"fas fa-image\"></i> No images available</div>"
-
                     }
                 </div>
-                ${project.images && project.images.length > 20 ? 
+                ${project.images && project.images.length > 20 ?
                     `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ""
                 }
             </div>
         `;
-        modal.style.display = "block"; // اجعلها "block" أولاً للسماح بالانتقال
-void modal.offsetWidth; // هذا يجبر المتصفح على إعادة حساب التخطيط لتفعيل الانتقال
-modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأثير التلاشي للظهور
-// Show modal immediately
+        modal.style.display = "block";
+        void modal.offsetWidth;
+        modal.classList.add("show-modal");
         updateContentWithFade(modalGallery, htmlContent, () => {
-            // Reattach event listeners after content is updated and visible
             const imagesGrid = modalGallery.querySelector(".project-images-grid");
             const progressIndicator = modalGallery.querySelector(".gallery-progress");
-            
+
             if (imagesGrid && progressIndicator && project.images?.length > 0) {
                 imagesGrid.addEventListener("scroll", () => {
                     const scrollPos = imagesGrid.scrollLeft;
@@ -316,27 +377,37 @@ modal.classList.add("show-modal"); // ثم أضف الكلاس لتشغيل تأ
 
     // Close modal
     closeModal.addEventListener("click", () => {
-        modal.classList.remove("show-modal"); // ابدأ تأثير التلاشي للاختفاء
-// احصل على مدة الانتقال من CSS لضمان إخفائها بعد الانتهاء
-const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
-setTimeout(() => {
-    modal.style.display = "none"; // اخفها تماماً بعد انتهاء التلاشي
-}, modalTransitionDuration);
-
+        modal.classList.remove("show-modal");
+        const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, modalTransitionDuration);
     });
 
     window.addEventListener("click", (event) => {
         if (event.target == modal) {
-            modal.classList.remove("show-modal"); // ابدأ تأثير التلاشي للاختفاء
-// احصل على مدة الانتقال من CSS لضمان إخفائها بعد الانتهاء
-const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
-setTimeout(() => {
-    modal.style.display = "none"; // اخفها تماماً بعد انتهاء التلاشي
-}, modalTransitionDuration);
-
+            modal.classList.remove("show-modal");
+            const modalTransitionDuration = parseFloat(getComputedStyle(modal).transitionDuration) * 1000;
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, modalTransitionDuration);
         }
     });
+
+    // إضافة الوظائف التي كانت خارج DOMContentLoaded هنا
+    // Navbar background on scroll - هذا الجزء كان موجوداً بالفعل ولكن خارج الـ DOMContentLoaded الرئيسي
+    // تم نقله إلى بداية الملف (بالتحديد، سيتم استبداله بالـ window.addEventListener("scroll") الذي بالأسفل)
 });
 
-
-
+// هذا الجزء سيتم إزالته أو دمجه
+// Navbar background on scroll (هذا كان موجوداً ككتلة منفصلة)
+window.addEventListener("scroll", () => {
+    const navbar = document.querySelector(".navbar");
+    if (window.scrollY > 100) {
+        navbar.style.background = "rgba(10, 10, 10, 0.8)";
+        navbar.style.backdropFilter = "blur(12px)";
+    } else {
+        navbar.style.background = "rgba(10, 10, 10, 0.6)";
+        navbar.style.backdropFilter = "blur(8px)";
+    }
+});
