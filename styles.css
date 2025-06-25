@@ -810,6 +810,19 @@ body.light-mode .about-text p {
     max-height: 70vh;
     overflow-y: auto;
 }
+/* أنماط إضافية لتحسين عرض الصور ومنع الوميض */
+.modal-gallery-grid img {
+    display: block; /* يضمن أن الصورة تأخذ كامل المساحة المتاحة */
+    width: 100%; /* يضمن أن الصورة تملأ عرض الحاوية */
+    height: auto; /* يحافظ على نسبة العرض إلى الارتفاع */
+    object-fit: cover; /* لضمان تغطية الصورة للمساحة المحددة */
+    transition: opacity 0.3s ease-in-out; /* إضافة انتقال لظهور الصورة */
+}
+
+/* هذا سيخفي الصورة مبدئياً ويظهرها تدريجياً بعد التحميل */
+.modal-gallery-grid img:not([src]):not([srcset]) {
+    opacity: 0;
+}
 
 .project-card {
     background: rgba(255, 255, 255, 0.05);
