@@ -180,20 +180,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // ------ استبدال الدالة - بداية ------
 // ------ استبدال الدالة - بداية ------
 function showProjectList(category) {
-    const data = portfolioData[category];
-    if (!data) return;
+    // إضافة مؤشر تحميل قبل البدء
+    modalGallery.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+    
+    setTimeout(() => {
+        const data = portfolioData[category];
+        if (!data) return;
 
-    modalTitle.textContent = data.title;
-    modalGallery.innerHTML = '';
-
-    if (data.items.length === 0) {
-        modalGallery.innerHTML = `
-            <div class="empty-category">
-                <i class="fas fa-folder-open"></i>
-                <h3>No projects yet</h3>
-            </div>
-        `;
-    } else {
+        modalTitle.textContent = data.title;
+        
+        // إنشاء عنصر خارج DOM أولاً
+        const fragment = document.createDocumentFragment();
         const gridContainer = document.createElement('div');
         gridContainer.className = 'modal-gallery-grid';
 
@@ -201,11 +198,14 @@ function showProjectList(category) {
             const projectCard = document.createElement('div');
             projectCard.className = 'project-card';
             projectCard.innerHTML = `
-                <div class="image-container">
+                <div class="image-container" style="height: 180px; background: #f0f0f0;">
                     <img src="${item.previewImage}" 
                          alt="${item.title}"
                          class="project-image"
-                         onerror="this.src='images/placeholder.png'">
+                         loading="lazy"
+                         style="opacity: 0; transition: opacity 0.3s ease;"
+                         onload="this.style.opacity = 1"
+                         onerror="this.src='images/placeholder.png'; this.style.opacity = 1">
                 </div>
                 <div class="project-info">
                     <h3>${item.title}</h3>
@@ -218,64 +218,90 @@ function showProjectList(category) {
             gridContainer.appendChild(projectCard);
         });
 
-        modalGallery.appendChild(gridContainer);
-    }
+        fragment.appendChild(gridContainer);
+        
+        // استبدال المحتوى دفعة واحدة
+        modalGallery.innerHTML = '';
+        modalGallery.appendChild(fragment);
+        
+    }, 50); // تأخير بسيط لتفادي الوميض
     modal.style.display = "block";
 }
-
-    function showProjectDetails(category, projectIndex) {
+   function showProjectDetails(category, projectIndex) {
+    // إضافة مؤشر تحميل أولي
+    modalGallery.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+    
+    setTimeout(() => {
         const data = portfolioData[category];
         const project = data.items[projectIndex];
         if (!project) return;
 
-        modalTitle.textContent = project.title;
-        modalGallery.innerHTML = `
+        // إنشاء العناصر خارج DOM أولاً
+        const fragment = document.createDocumentFragment();
+        const container = document.createElement('div');
+        
+        container.innerHTML = `
             <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
                 <i class="fas fa-arrow-left"></i> Back to Projects
             </button>
-            <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
-            <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
+            <p class="project-description">${project.description}</p>
+            <p class="project-tools"><strong>Tools:</strong> ${project.tools}</p>
             <div class="project-images-container">
                 <div class="gallery-progress">1 of ${project.images?.length || 0}</div>
-                <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
+                <div class="gallery-grid project-images-grid">
                     ${project.images && project.images.length > 0 ? 
                         project.images.slice(0, Math.min(5, project.images.length)).map(img => `
-                            <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
-                                <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;">
+                            <div class="gallery-item">
+                                <img src="${img}" 
+                                     alt="${project.title}" 
+                                     class="gallery-image"
+                                     loading="lazy"
+                                     style="opacity: 0; transition: opacity 0.3s ease;"
+                                     onload="this.style.opacity = 1"
+                                     onerror="this.style.opacity = 1; this.src='images/placeholder.png'">
                             </div>
                         `).join('') : 
-                        '<div class="gallery-placeholder" style="width:100%; text-align:center; color:#666;"><i class="fas fa-image"></i> No images available</div>'
+                        '<div class="gallery-placeholder"><i class="fas fa-image"></i> No images available</div>'
                     }
                 </div>
                 ${project.images && project.images.length > 5 ? 
-                    `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ''
+                    `<button id="show-more-images-btn" class="btn btn-primary">Show More</button>` : ''
                 }
             </div>
         `;
-
-        const imagesGrid = modalGallery.querySelector('.project-images-grid');
-        const progressIndicator = modalGallery.querySelector('.gallery-progress');
         
-        if (imagesGrid && progressIndicator && project.images?.length > 0) {
-            imagesGrid.addEventListener('scroll', () => {
-                const scrollPos = imagesGrid.scrollLeft;
-                const imgWidth = imagesGrid.querySelector('.gallery-item').offsetWidth + 15;
-                const currentImage = Math.round(scrollPos / imgWidth) + 1;
-                progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
-            });
-        }
-
-        const showMoreBtn = modalGallery.querySelector('#show-more-images-btn');
+        fragment.appendChild(container);
+        
+        // استبدال المحتوى دفعة واحدة
+        modalGallery.innerHTML = '';
+        modalGallery.appendChild(fragment);
+        
+        // بقية معالجات الأحداث...
+        document.getElementById('back-to-projects-btn').addEventListener('click', () => {
+            showProjectList(category);
+        });
+        
+        const showMoreBtn = document.getElementById('show-more-images-btn');
         if (showMoreBtn) {
             showMoreBtn.addEventListener('click', () => {
+                const imagesGrid = document.querySelector('.project-images-grid');
                 imagesGrid.innerHTML = project.images.map(img => `
-                    <div class="gallery-item" style="flex: 0 0 300px;">
-                        <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;">
+                    <div class="gallery-item">
+                        <img src="${img}" 
+                             alt="${project.title}" 
+                             class="gallery-image"
+                             loading="lazy"
+                             style="opacity: 0; transition: opacity 0.3s ease;"
+                             onload="this.style.opacity = 1"
+                             onerror="this.style.opacity = 1; this.src='images/placeholder.png'">
                     </div>
                 `).join('');
                 showMoreBtn.style.display = 'none';
             });
         }
+        
+    }, 50);
+}
 
         document.getElementById('back-to-projects-btn').addEventListener('click', () => {
             showProjectList(category);
