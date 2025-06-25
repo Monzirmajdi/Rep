@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (showMoreBtn) {
                 showMoreBtn.addEventListener("click", () => {
                     imagesGrid.innerHTML = project.images.map(img => `
-                        <div class="gallery-item" style="flex: 0 0 300px;">
+                        <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
                             <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px; opacity:0; transition: opacity 0.4s;" onload="this.style.opacity=1;" loading="lazy">
                         </div>
                     `).join("");
