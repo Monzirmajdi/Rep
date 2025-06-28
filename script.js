@@ -22,11 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
             navMenu.classList.toggle("active");
+            
+            // تحسينات للوصولية
+            const isExpanded = navMenu.classList.contains("active");
+            hamburger.setAttribute("aria-expanded", isExpanded);
         });
 
         document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
             hamburger.classList.remove("active");
             navMenu.classList.remove("active");
+            hamburger.setAttribute("aria-expanded", "false");
         }));
     }
 
@@ -134,7 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem('page-theme', theme);
             updateThemeIcon();
             
-            document.documentElement.style.transition = 'background-color 0.5s ease';
+            // تحسين انتقال تغيير الثيم
+            document.documentElement.style.transition = 'background-color 0.5s ease, color 0.3s ease';
             setTimeout(() => {
                 document.documentElement.style.transition = '';
             }, 500);
@@ -152,25 +158,66 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // وظائف نافذة المشاريع
-    const modal = document.getElementById("portfolio-modal");
-    const closeModal = document.querySelector(".modal .close");
-    const modalTitle = document.getElementById("modal-title");
-    const modalGallery = document.getElementById("modal-gallery");
+    // Intersection Observer لتحميل العناصر عند الظهور
+    const lazyLoadObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+                lazyLoadObserver.unobserve(img);
+            }
+        });
+    }, { threshold: 0.1 });
 
-    function updateContentWithFade(element, newHTML, callback) {
-        element.style.opacity = 0;
-        element.style.pointerEvents = 'none';
+    // تفعيل Lazy Loading للصور
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        img.dataset.src = img.src;
+        img.src = '';
+        lazyLoadObserver.observe(img);
         
-        setTimeout(() => {
-            element.innerHTML = newHTML;
-            element.style.opacity = '';
-            element.style.pointerEvents = '';
-            
-            setTimeout(() => {
-                if (callback) callback();
-            }, 50);
-        }, 300);
+        img.addEventListener('load', () => {
+            img.classList.add('loaded');
+        });
+    });
+
+    // Observer لأشرطة تقدم المهارات
+    const skillsProgress = document.querySelector('.skills-progress');
+    if (skillsProgress) {
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.progress').forEach(bar => {
+                        const width = bar.parentElement.previousElementSibling.querySelector('span').textContent;
+                        bar.style.width = width;
+                    });
+                    skillsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillsObserver.observe(skillsProgress);
+    }
+
+    // Observer للعناصر العامة
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // Preload لصور المعرض
+    function preloadGalleryImages(images) {
+        images.forEach(imgSrc => {
+            const img = new Image();
+            img.src = imgSrc;
+        });
     }
 
     // بيانات المشاريع
@@ -255,10 +302,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // وظائف نافذة المشاريع
+    const modal = document.getElementById("portfolio-modal");
+    const closeModal = document.querySelector(".modal .close");
+    const modalTitle = document.getElementById("modal-title");
+    const modalGallery = document.getElementById("modal-gallery");
+
+    function updateContentWithFade(element, newHTML, callback) {
+        element.style.opacity = 0;
+        element.style.pointerEvents = 'none';
+        
+        setTimeout(() => {
+            element.innerHTML = newHTML;
+            element.style.opacity = '';
+            element.style.pointerEvents = '';
+            
+            setTimeout(() => {
+                if (callback) callback();
+            }, 50);
+        }, 300);
+    }
+
     // عرض قائمة المشاريع
     function showProjectList(category) {
         const data = portfolioData[category];
         if (!data) return;
+
+        // Preload الصور قبل العرض
+        data.items.forEach(item => {
+            preloadGalleryImages(item.images);
+        });
 
         modalTitle.textContent = data.title;
 
@@ -309,6 +382,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const project = data.items[projectIndex];
         if (!project) return;
 
+        // Preload جميع صور المشروع
+        preloadGalleryImages(project.images);
+
         modalTitle.textContent = project.title;
 
         let htmlContent = `
@@ -345,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (imagesGrid && progressIndicator && project.images?.length > 0) {
                 updateImageCounter();
-                imagesGrid.addEventListener('scroll', updateImageCounter);
+                imagesGrid.addEventListener('scroll', throttle(updateImageCounter, 100));
                 
                 function updateImageCounter() {
                     const scrollPos = imagesGrid.scrollLeft;
@@ -417,6 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// تأثير التمرير على النافبار
 window.addEventListener("scroll", throttle(() => {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 100) {
