@@ -838,7 +838,7 @@ body.light-mode .hero {
 }
 
 body.light-mode .hero-subtitle {
-    color: #ffffff !important;
+    color: #000000 !important;
 }
 
 body.light-mode .btn-secondary {
