@@ -69,9 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             isTypingComplete = true;
         }
-    }
 
-    // استبدال كود theme-toggle الحالي بهذا الكود المحسن
+        const themeToggle = document.querySelector(".theme-toggle");
+const body = document.body;
+  // Theme toggle functionality
+const themeToggle = document.querySelector(".theme-toggle");
+const body = document.body;
+
 if (themeToggle) {
     // دالة لتحديث الأيقونة بناء على الوضع الحالي
     const updateThemeIcon = () => {
@@ -124,13 +128,13 @@ if (themeToggle) {
         }
         updateThemeIcon();
     });
-}
+
 
         // تحميل التفضيل المحفوظ عند بدء التشغيل
         if (localStorage.getItem('page-theme') === 'light') {
             body.classList.add('light-mode');
             themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-        }
+        
     }
 
     // Portfolio Modal Functionality (هذا الجزء كان موجوداً بالفعل وتم الاحتفاظ به)
