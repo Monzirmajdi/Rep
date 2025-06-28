@@ -102,65 +102,130 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalGallery = document.getElementById("modal-gallery");
 
     // دالة لتحديث المحتوى بسلاسة
-    function updateContentWithFade(element, newHTML, callback) {
-        element.classList.remove("show"); // Start fade-out
-
-        // Wait for fade-out to complete
-        const transitionDuration = parseFloat(getComputedStyle(element).transitionDuration) * 1000;
+    // في الجزء الخاص بـ updateContentWithFade، استبدل الدالة بالكود التالي:
+function updateContentWithFade(element, newHTML, callback) {
+    element.style.opacity = 0;
+    element.style.pointerEvents = 'none'; // تعطيل التفاعلات أثناء الانتقال
+    
+    setTimeout(() => {
+        element.innerHTML = newHTML;
+        element.style.opacity = '';
+        element.style.pointerEvents = ''; // إعادة تمكين التفاعلات
+        
+        // إضافة انتقال سلس للظهور
         setTimeout(() => {
-            element.innerHTML = newHTML;
-            // Force reflow to ensure transition applies
-            void element.offsetWidth;
-            element.classList.add("show"); // Start fade-in
-            if (callback) {
-                // Wait for the fade-in transition to complete before executing callback
-                element.addEventListener("transitionend", function handler() {
-                    element.removeEventListener("transitionend", handler);
-                    callback();
-                }, {once: true});
-            }
-        }, transitionDuration);
+            if (callback) callback();
+        }, 50); // تأخير بسيط لضمان تطبيق التغييرات
+    }, 300); // يتناسب مع مدة الانتقال في CSS
+}
+
+// في الجزء الخاص بـ showProjectList، تأكد من إزالة معالج الأحداث القديم قبل إضافة الجديد:
+function showProjectList(category) {
+    const data = portfolioData[category];
+    if (!data) return;
+
+    modalTitle.textContent = data.title;
+
+    let htmlContent = "";
+    if (data.items.length === 0) {
+        htmlContent = `
+            <div class="empty-category">
+                <i class="fas fa-folder-open"></i>
+                <h3>No projects yet</h3>
+            </div>
+        `;
+    } else {
+        const gridItems = data.items.map((item, index) => `
+            <div class="project-card" data-category="${category}" data-index="${index}">
+                <div class="image-container">
+                    <img src="${item.previewImage}"
+                         alt="${item.title}"
+                         class="project-image"
+                         onerror="this.src='images/placeholder.png'"
+                         loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3>${item.title}</h3>
+                    <p>${item.description.substring(0, 60)}...</p>
+                </div>
+            </div>
+        `).join("");
+        htmlContent = `<div class="modal-gallery-grid">${gridItems}</div>`;
     }
 
+    modal.style.display = "block";
+    void modal.offsetWidth;
+    modal.classList.add("show-modal");
+    
+    // إزالة أي معالجات أحداث موجودة مسبقاً
+    const oldGallery = modalGallery.cloneNode(false);
+    modalGallery.parentNode.replaceChild(oldGallery, modalGallery);
+    modalGallery = oldGallery;
+    
+    updateContentWithFade(modalGallery, htmlContent, () => {
+        document.querySelectorAll(".project-card").forEach(card => {
+            card.addEventListener("click", (e) => {
+                const cat = e.currentTarget.dataset.category;
+                const idx = parseInt(e.currentTarget.dataset.index);
+                showProjectDetails(cat, idx);
+            });
+        });
+    });
+}
     // Portfolio data structure
     const portfolioData = {
         "social-media": {
             title: "Social Media Design",
             items: [
                 {
-                    title: "Baseline Medical - Eid Mubarak Campaign",
-                    description: "Eid greeting social media post for Baseline Medical with mosque imagery",
+                    title: "Baseline Medical",
+                    description: "Social media ads for Baseline Medical page",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gRzR7o.png",
-                    images: ["images/social/1000003401.jpg", "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
+                    previewImage: "images/Social-media/Baseline/Untitled102_20250402071023_HK435gQb2B_UuiM0m0B3k.webp",
+                    images: ["images/Social-media/Baseline/Untitled102_20250402071023_HK435gQb2B_UuiM0m0B3k.webp", 
+                             "images/Social-media/Baseline/Untitled106_20250405034447_Cl15GOrO8V_CPIHi0WE8y.webp", 
+                             "images/Social-media/Baseline/Untitled107_20250404064546_vVMow1vi0g_c1Reykj31P.webp", 
+                             "images/Social-media/Baseline/Untitled115_20250410034107_MG4jGZKc4G_DcqjoRFW50.webp", 
+                             "images/Social-media/Baseline/Untitled116_20250410122545_UyxJ6Uu43k_BlO2apFk6X.webp", 
+                             "images/Social-media/Baseline/Untitled120_20250416181851_RLRcqULf7T_Xc6f889q8n.webp", 
+                             "images/Social-media/Baseline/Untitled141_20250509072843_rNTgZjrw5v_eMvMMrQc2v.webp", 
+                             "images/Social-media/Baseline/Untitled148_20250519081941_PrFN3uLO5B_pLTSooTW3C.webp", 
+                             "images/Social-media/Baseline/Untitled148_20250519082112_XYVTTSpm3u_H9cERuBc9Z.webp", 
+                             "images/Social-media/Baseline/Untitled149_Restored_20250520022900_OgwbOoZk4r_cqNkq3rX5M.webp", 
+                             "images/Social-media/Baseline/Untitled150_20250607161313_PIkd3DHX2S_NxVyUull2f.webp", 
+                             "images/Social-media/Baseline/Untitled169 (1)_CNyjEGoT8O_6IYibalO29.webp"]
                 },
                 {
-                    title: "Baseline Medical - Eid Mubarak Campaign",
-                    description: "Eid greeting social media post for Baseline Medical with mosque imagery",
+                    title: "khomra",
+                    description: "Social media ad for local Sudanese perfume",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
-                    images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
+                    previewImage: "images/Social-media/Khomra/1000004769_A22mea5b06_qG6cn5Fd2r.webp",
+                    images: ["images/Social-media/Khomra/1000004769_A22mea5b06_qG6cn5Fd2r.webp", 
+                             "images/Social-media/Khomra/1000004767_NtGk94AQ8p.webp", 
+                             "images/Social-media/Khomra/1000004768_jNCdAheZ0X.webp"]
                 },
                 {
-                    title: "Baseline Medical - Eid Mubarak Campaign",
-                    description: "Eid greeting social media post for Baseline Medical with mosque imagery",
+                    title: "Social media designs",
+                    description: "Mixed social media Designs for real and imaginary brands",
                     tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
-                    images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
-                },
-                {
-                    title: "Baseline Medical - Eid Mubarak Campaign",
-                    description: "Eid greeting social media post for Baseline Medical with mosque imagery",
-                    tools: "Adobe Illustrator, Adobe Photoshop",
-                    previewImage: "images/social/بدون اسم10_20250622164022_keQc5u5Z2b_ZzlwLR8n2o_rGC8gR2o.png",
-                    images: ["images/social/1000003401.jpg", "images/social/1000003324.png", "images/social/1000003399.jpg", "images/social/1000003398.jpg", "images/social/1000003397.jpg", "images/social/1000003400.jpg"]
+                    previewImage: "images/Social-media/ADS/c1_20250626_06183977_UzHmudLu4R_r1uXqT7v7x.webp",
+                    images: ["images/Social-media/ADS/c1_20250626_06183977_UzHmudLu4R_r1uXqT7v7x.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184476_DAbNn8O89Y_cOF1rrGA8W.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184529_y5AFcLFz1Q_1ALNxoT55E.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184682_3pQdNzME3u_6IbizTyt6n.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184747_J23thI8M0W_FrIU6tGS2Q.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184790_JVPA1IKB4u.webp", 
+                             "images/Social-media/ADS/c1_20250626_06184819_aTkjp5I22h_PACRYc5s2g.webp", 
+                             "images/Social-media/ADS/c1_20250626_06183730_n0tZuHHu4j_XkXAH8WV3L.webp", 
+                             "images/Social-media/ADS/c1_20250626_06183830_pIuHZwJZ91_B28wVhSp3t.webp" ]
                 }
+                
             ]
         },
         "branding": {
             title: "Brand Identity & Logos",
             items: [
-                {
+              /* {
                     title: "تليفوني - متجر للهواتف والاكسسوارات",
                     description: "تصميم هوية بصرية لمتجر هواتف واكسسوارات",
                     tools: "Adobe Illustrator, Adobe Photoshop",
@@ -187,27 +252,35 @@ document.addEventListener("DOMContentLoaded", () => {
                     tools: "Adobe Illustrator, Adobe Photoshop",
                     previewImage: "images/1000229019.jpg",
                     images: ["images/1000229019.jpg", "images/1000229020.jpg"]
-                },
+                },*/
                 {
                     title: "Ratina - براند سوداني للطرح والمنتجات التجميلية",
                     description: "تصميم هوية بصرية لبراند سوداني للطرح والمنتجات التجميلية",
                     tools: "Adobe Illustrator, Adobe Photoshop",
                     previewImage: "images/Branding/Ratina/Untitled182_20250605061344_CvWhFKhQ4Q.webp",
-                    images: ["images/Branding/Ratina/Untitled182_20250605061344_CvWhFKhQ4Q.webp", "images/Branding/Ratina/Untitled183_a66VRPGx8P.webp","images/Branding/Ratina/Untitled184_20250605062347_cyR4cyNw8B.webp","images/Branding/Ratina/Untitled181_20250605061101_BGUEtEPg0Y.webp","images/Branding/Ratina/Untitled180_20250605060456_vryLtoMw0E.webp"]
+                    images: ["images/Branding/Ratina/Untitled182_20250605061344_CvWhFKhQ4Q.webp", 
+                             "images/Branding/Ratina/Untitled183_a66VRPGx8P.webp", 
+                             "images/Branding/Ratina/Untitled184_20250605062347_cyR4cyNw8B.webp", 
+                             "images/Branding/Ratina/Untitled181_20250605061101_BGUEtEPg0Y.webp", 
+                             "images/Branding/Ratina/Untitled180_20250605060456_vryLtoMw0E.webp"]
                 }, 
                 {
                     title: "Sa Stainless Steel - براند سوداني للاكسسوارات الفضة الاستيل",
                     description: "تصميم هوية بصرية لبراند سوداني للاكسسوارات الفضة",
                     tools: "Adobe Illustrator, Adobe Photoshop",
                     previewImage: "images/Branding/Sa/Untitled28_20250624203543_YNhA6ynz1M.webp",
-                    images: ["images/Branding/Sa/1_NtqvnVum6y.webp", "images/Branding/Sa/2_iabZA5PC8E.webp","images/Branding/Sa/4_GfPbVJRk7O.webp","images/Branding/Sa/5_xheKK6K81L.webp","images/Branding/Sa/6_2PZqglIW4P.webp"]
+                    images: ["images/Branding/Sa/1_NtqvnVum6y.webp", 
+                             "images/Branding/Sa/2_iabZA5PC8E.webp", 
+                             "images/Branding/Sa/4_GfPbVJRk7O.webp", 
+                             "images/Branding/Sa/5_xheKK6K81L.webp", 
+                             "images/Branding/Sa/6_2PZqglIW4P.webp"]
                 } 
             ]
         },
         "ui-ux": {
             title: "UI/UX Design",
             items: [
-                {
+             /*   {
                     title: "Mobile App Interface",
                     description: "Healthcare mobile application design",
                     tools: "Figma, Adobe XD",
@@ -234,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     tools: "Figma, Photoshop",
                     previewImage: "images/placeholder.png",
                     images: []
-                }
+                }*/
             ]
         }
     };
@@ -311,70 +384,78 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function showProjectDetails(category, projectIndex) {
-        const data = portfolioData[category];
-        const project = data.items[projectIndex];
-        if (!project) return;
+   function showProjectDetails(category, projectIndex) {
+    const data = portfolioData[category];
+    const project = data.items[projectIndex];
+    if (!project) return;
 
-        modalTitle.textContent = project.title;
+    modalTitle.textContent = project.title;
 
-        let htmlContent = `
-            <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
-                <i class="fas fa-arrow-left"></i> Back to Projects
-            </button>
-            <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
-            <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
-            <div class="project-images-container">
-                <div class="gallery-progress">1 of ${project.images?.length || 0}</div>
-                <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
-                    ${project.images && project.images.length > 0 ?
-                        project.images.map(img => `
-                            <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
-                                <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;" loading="lazy">
-                            </div>
-                        `).join("") :
-                        "<div class=\"gallery-placeholder\"><i class=\"fas fa-image\"></i> No images available</div>"
-                    }
-                </div>
-                ${project.images && project.images.length > 20 ?
-                    `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ""
+    let htmlContent = `
+        <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </button>
+        <p style="color: #ccc; margin-bottom: 10px; font-size: 1rem;">${project.description}</p>
+        <p style="color: #999; margin-bottom: 20px; font-size: 0.9rem;"><strong>Tools:</strong> ${project.tools}</p>
+        <div class="project-images-container">
+            <div class="gallery-progress">1 of ${project.images?.length || 0}</div>
+            <div class="gallery-grid project-images-grid" style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;">
+                ${project.images && project.images.length > 0 ?
+                    project.images.map(img => `
+                        <div class="gallery-item" style="flex: 0 0 30%; max-width:400px;min-width:250px;">
+                            <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; height:auto;border-radius:8px;" loading="lazy">
+                        </div>
+                    `).join("") :
+                    "<div class=\"gallery-placeholder\"><i class=\"fas fa-image\"></i> No images available</div>"
                 }
             </div>
-        `;
-        modal.style.display = "block";
-        void modal.offsetWidth;
-        modal.classList.add("show-modal");
-        updateContentWithFade(modalGallery, htmlContent, () => {
-            const imagesGrid = modalGallery.querySelector(".project-images-grid");
-            const progressIndicator = modalGallery.querySelector(".gallery-progress");
-
-            if (imagesGrid && progressIndicator && project.images?.length > 0) {
-                imagesGrid.addEventListener("scroll", () => {
-                    const scrollPos = imagesGrid.scrollLeft;
-                    const imgWidth = imagesGrid.querySelector(".gallery-item").offsetWidth + 15;
-                    const currentImage = Math.round(scrollPos / imgWidth) + 1;
-                    progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
-                });
+            ${project.images && project.images.length > 20 ?
+                `<button id="show-more-images-btn" class="btn btn-primary" style="margin: 20px auto; display: block;">Show More</button>` : ""
             }
+        </div>
+    `;
+    
+    modal.style.display = "block";
+    void modal.offsetWidth;
+    modal.classList.add("show-modal");
+    
+    updateContentWithFade(modalGallery, htmlContent, () => {
+        const imagesGrid = modalGallery.querySelector(".project-images-grid");
+        const progressIndicator = modalGallery.querySelector(".gallery-progress");
 
-            const showMoreBtn = modalGallery.querySelector("#show-more-images-btn");
-            if (showMoreBtn) {
-                showMoreBtn.addEventListener("click", () => {
-                    imagesGrid.innerHTML = project.images.map(img => `
-                        <div class="gallery-item" style="flex: 0 0 300px;">
-                            <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;" loading="lazy">
-                        </div>
-                    `).join("");
-                    showMoreBtn.style.display = "none";
-                });
+        if (imagesGrid && progressIndicator && project.images?.length > 0) {
+            // تحديث العداد عند التحميل أولاً
+            updateImageCounter();
+            
+            // تحديث العداد عند التمرير
+            imagesGrid.addEventListener('scroll', updateImageCounter);
+            
+            function updateImageCounter() {
+                const scrollPos = imagesGrid.scrollLeft;
+                const imgWidth = imagesGrid.querySelector('.gallery-item')?.offsetWidth || 0;
+                const gap = 15; // يجب أن يتطابق مع الفجوة في CSS
+                const currentImage = Math.round(scrollPos / (imgWidth + gap)) + 1;
+                progressIndicator.textContent = `${currentImage} of ${project.images.length}`;
             }
+        }
 
-            document.getElementById("back-to-projects-btn").addEventListener("click", () => {
-                showProjectList(category);
+        const showMoreBtn = modalGallery.querySelector("#show-more-images-btn");
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener("click", () => {
+                imagesGrid.innerHTML = project.images.map(img => `
+                    <div class="gallery-item" style="flex: 0 0 300px;">
+                        <img src="${img}" alt="${project.title}" class="gallery-image" style="width:100%; border-radius:8px;" loading="lazy">
+                    </div>
+                `).join("");
+                showMoreBtn.style.display = "none";
             });
-        });
-    }
+        }
 
+        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
+            showProjectList(category);
+        });
+    });
+}
     // Close modal
     closeModal.addEventListener("click", () => {
         modal.classList.remove("show-modal");

@@ -143,8 +143,8 @@ body {
 }
 
 .hero-subtitle {
-    font-family: 'Allura', cursive;
-    font-size: 1.5rem;
+    font-family: 'Allura', cursive;   
+    font-size: 2.3rem;     /*WAS 1.5*/
     color: #f4c430;
     margin-bottom: 40px;
     opacity: 0;
@@ -1042,7 +1042,7 @@ body.light-mode .bar {
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 2.5rem; /*غيرتها 1.5*/
     }
 
     .btn {
@@ -1081,13 +1081,21 @@ body.light-mode .navbar {
 
 body.light-mode .nav-link,
 body.light-mode .hero-title,
-body.light-mode .hero-subtitle,
+body.light-mode .hero-subtitle,*/
 body.light-mode .section-title,
 body.light-mode .card-title,
 body.light-mode .about-text h2,
 body.light-mode .contact-details h4,
 body.light-mode .footer-text {
     color: #222 !important;
+    }
+
+/*body.light-mode .hero-subtitle, {    /*;الكتابة تحت العنوان > GOLD كانت مع الفوق 
+    color: #FFD700 !important;*/
+}
+body.light-mode .hero-subtitle {
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
 }
 
 body.light-mode .hero {
@@ -1295,5 +1303,12 @@ body.light-mode .form-group textarea:-ms-input-placeholder {
 body.light-mode .form-group input::placeholder-shown,
 body.light-mode .form-group textarea::placeholder-shown {
     color: #888 !important;
+}
+
+
+
+body.light-mode .element-2,
+body.light-mode .element-3 {
+    filter: invert(100%); /* لتحويل الألوان إلى معكوسها، مما يجعل الأبيض أسود */
 }
 
