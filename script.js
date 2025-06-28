@@ -71,22 +71,60 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Theme toggle functionality (تم دمجها هنا)
-    const themeToggle = document.querySelector(".theme-toggle");
-    const body = document.body;
+    // استبدال كود theme-toggle الحالي بهذا الكود المحسن
+if (themeToggle) {
+    // دالة لتحديث الأيقونة بناء على الوضع الحالي
+    const updateThemeIcon = () => {
+        const icon = themeToggle.querySelector("i");
+        if (body.classList.contains('light-mode')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+            icon.setAttribute('aria-label', 'Switch to dark mode');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            icon.setAttribute('aria-label', 'Switch to light mode');
+        }
+    };
 
-    if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
-            const icon = themeToggle.querySelector("i");
-            body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('page-theme', 'light');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('page-theme', 'dark');
-            }
-        });
+    // التحقق من تفضيلات النظام أولاً
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        body.classList.add('light-mode');
+        localStorage.setItem('page-theme', 'light');
+    }
+
+    // ثم التحقق من التفضيل المحفوظ
+    if (localStorage.getItem('page-theme') === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    // تحديث الأيقونة عند التحميل
+    updateThemeIcon();
+
+    // إضافة event listener للتبديل
+    themeToggle.addEventListener("click", () => {
+        body.classList.toggle('light-mode');
+        const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('page-theme', theme);
+        updateThemeIcon();
+        
+        // إضافة انتقال سلس لتغيير الوضع
+        document.documentElement.style.transition = 'background-color 0.5s ease';
+        setTimeout(() => {
+            document.documentElement.style.transition = '';
+        }, 500);
+    });
+
+    // الاستجابة لتغير تفضيلات النظام
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+        if (e.matches) {
+            body.classList.add('light-mode');
+            localStorage.setItem('page-theme', 'light');
+        } else {
+            body.classList.remove('light-mode');
+            localStorage.setItem('page-theme', 'dark');
+        }
+        updateThemeIcon();
+    });
+}
 
         // تحميل التفضيل المحفوظ عند بدء التشغيل
         if (localStorage.getItem('page-theme') === 'light') {
