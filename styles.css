@@ -1304,11 +1304,133 @@ body.light-mode .form-group input::placeholder-shown,
 body.light-mode .form-group textarea::placeholder-shown {
     color: #888 !important;
 }
+/* أضف هذه الأنماط الجديدة */
 
+/* تحسين الانتقال بين الوضعين */
+:root {
+    transition: background-color 0.5s ease, color 0.3s ease;
+}
+
+/* تحسينات عامة للوضع الفاتح */
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #333;
+    --primary-text: #222;
+    --secondary-text: #555;
+    --border-color: #e0e0e0;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --modal-bg: rgba(255, 255, 255, 0.98);
+}
+
+/* تحسينات الشريط العلوي */
+body.light-mode .navbar {
+    background: rgba(248, 249, 250, 0.98) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-color);
+}
+
+body.light-mode .nav-link {
+    color: var(--primary-text) !important;
+}
+
+body.light-mode .nav-link:hover {
+    color: #d4a017 !important; /* ذهبي أكثر دقة */
+}
+
+/* تحسينات القسم الرئيسي */
+body.light-mode .hero {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+}
+
+body.light-mode .hero-subtitle {
+    color: #d4a017 !important;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسينات البطاقات */
+body.light-mode .category-card,
+body.light-mode .skill-item,
+body.light-mode .project-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .card-description,
+body.light-mode .about-text p,
+body.light-mode .project-info p {
+    color: var(--secondary-text) !important;
+}
+
+/* تحسينات المودال */
+body.light-mode .modal {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.light-mode .modal-content {
+    background: var(--modal-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+body.light-mode .close {
+    color: var(--secondary-text) !important;
+}
+
+/* تحسينات العناصر العائمة */
+body.light-mode .element-1,
+body.light-mode .element-2,
+body.light-mode .element-3 {
+    filter: brightness(0.9) contrast(1.2);
+}
+
+/* تحسينات النماذج */
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: #fff !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--primary-text) !important;
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.2) !important;
+}
+
+/* تحسينات الزر الذهبي */
+body.light-mode .btn-primary {
+    background: linear-gradient(45deg, #d4a017, #f4c430) !important;
+    color: #fff !important;
+}
+
+/* تحسينات أيقونات التواصل */
+body.light-mode .social-link {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: var(--primary-text) !important;
+}
+
+body.light-mode .social-link:hover {
+    background: #d4a017 !important;
+    color: #fff !important;
+}
+
+/* تحسينات خاصة بالهواتف */
+@media (max-width: 768px) {
+    body.light-mode .nav-menu {
+        background: var(--modal-bg) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.light-mode .hamburger .bar {
+        background: var(--primary-text) !important;
+    }
+}
 
 
 body.light-mode .element-2,
 body.light-mode .element-3 {
     filter: invert(100%); /* لتحويل الألوان إلى معكوسها، مما يجعل الأبيض أسود */
 }
-
+.navbar, .hero, .category-card, .modal-content {
+    transition: all 0.5s ease;
+}
