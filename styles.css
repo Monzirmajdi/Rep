@@ -1434,3 +1434,6 @@ body.light-mode .element-3 {
 .navbar, .hero, .category-card, .modal-content {
     transition: all 0.5s ease;
 }
+body.light-mode .gold-element {
+    filter: brightness(0.8) sepia(0.2) saturate(2) hue-rotate(-10deg);
+}
