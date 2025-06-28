@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MonzirGraphix - Graphic Designer Portfolio</title>
     
+    <!-- Preload للموارد الحرجة -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Allura&display=swap" as="style">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    
     <!-- روابط خطوط الويب -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Allura&display=swap" rel="stylesheet">
     
@@ -76,9 +81,9 @@
             <!-- العناصر المرئية العائمة -->
             <div class="hero-visual">
                 <div class="floating-elements">
-                    <img src="images/Untitled24_20250624195444_BrobfRFK7c.png" alt="Floating Element 1" class="element element-1">
-                    <img src="images/Untitled24_20250624194320_Xc8ml8Vk2q.png" alt="Floating Element 2" class="element element-2">
-                    <img src="images/Untitled23_20250624194118_XFkCbgG27i.png" alt="Floating Element 3" class="element element-3">
+                    <img src="images/Untitled24_20250624195444_BrobfRFK7c.png" alt="Floating Element 1" class="element element-1" loading="lazy">
+                    <img src="images/Untitled24_20250624194320_Xc8ml8Vk2q.png" alt="Floating Element 2" class="element element-2" loading="lazy">
+                    <img src="images/Untitled23_20250624194118_XFkCbgG27i.png" alt="Floating Element 3" class="element element-3" loading="lazy">
                 </div>
             </div>
         </div>
@@ -132,6 +137,34 @@
                         <div class="skill-item">
                             <i class="fas fa-share-alt"></i>
                             <span>Social Media Design</span>
+                        </div>
+                    </div>
+
+                    <!-- أشرطة تقدم المهارات الجديدة -->
+                    <div class="skills-progress">
+                        <div class="skill">
+                            <h4>Adobe Illustrator <span>90%</span></h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <h4>Photoshop <span>85%</span></h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <h4>Brand Identity <span>80%</span></h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <h4>UI/UX Design <span>75%</span></h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -274,15 +307,19 @@
                 <div class="contact-form">
                     <form id="contact-form">
                         <div class="form-group">
+                            <label for="name" class="sr-only">Your Name</label>
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
+                            <label for="email" class="sr-only">Your Email</label>
                             <input type="email" id="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
+                            <label for="subject" class="sr-only">Subject</label>
                             <input type="text" id="subject" name="subject" placeholder="Subject" required>
                         </div>
                         <div class="form-group">
+                            <label for="message" class="sr-only">Your Message</label>
                             <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
@@ -303,16 +340,16 @@
                 
                 <!-- روابط وسائل التواصل الاجتماعي -->
                 <div class="footer-social">
-                    <a href="https://linkedin.com/in/monzirgraphix" target="_blank" class="social-link">
+                    <a href="https://linkedin.com/in/monzirgraphix" target="_blank" class="social-link" aria-label="LinkedIn">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.facebook.com/share/15ss3pWBjG/?mibextid=qi2Omg" target="_blank" class="social-link">
+                    <a href="https://www.facebook.com/share/15ss3pWBjG/?mibextid=qi2Omg" target="_blank" class="social-link" aria-label="Facebook">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="https://www.instagram.com/monzir_magdi?igsh=Z25paDEybHVzeWM=" target="_blank" class="social-link">
+                    <a href="https://www.instagram.com/monzir_magdi?igsh=Z25paDEybHVzeWM=" target="_blank" class="social-link" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="mailto:monzir121953@gmail.com" class="social-link">
+                    <a href="mailto:monzir121953@gmail.com" class="social-link" aria-label="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
