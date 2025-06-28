@@ -1,5 +1,19 @@
 // جميع الأحداث المتعلقة بتحميل الصفحة
 document.addEventListener("DOMContentLoaded", () => {
+    // دالة Throttle لتحسين الأداء
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const context = this;
+            const args = arguments;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
+
     // قائمة الهامبرجر
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".nav-menu");
@@ -19,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // تغيير عنوان النافبار عند التمرير
     const navLogoSpan = document.querySelector(".nav-logo span");
     const sections = document.querySelectorAll("section[id]");
+    const sectionPositions = [];
 
     const sectionTitles = {
         "home": "Home",
@@ -27,13 +42,25 @@ document.addEventListener("DOMContentLoaded", () => {
         "contact": "Contact"
     };
 
-    function updateNavLogoTitle() {
-        let currentSectionId = "home"; // القيمة الافتراضية
-
+    // حساب مواقع الأقسام مرة واحدة
+    function calculateSectionPositions() {
+        sectionPositions.length = 0; // إفراغ المصفوفة أولاً
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+            sectionPositions.push({
+                id: section.id,
+                top: section.offsetTop,
+                height: section.clientHeight
+            });
+        });
+    }
+
+    // تحديث عنوان الشريط بناء على المواقع المحفوظة
+    function updateNavLogoTitle() {
+        let currentSectionId = "home";
+        const scrollPosition = window.scrollY + 100;
+
+        sectionPositions.forEach(section => {
+            if (scrollPosition >= section.top && scrollPosition < section.top + section.height) {
                 currentSectionId = section.id;
             }
         });
@@ -43,9 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // تحديث العنوان عند التحميل والتمرير
+    // حساب المواقع أول مرة وعند تغيير حجم النافذة
+    calculateSectionPositions();
+    window.addEventListener('resize', throttle(calculateSectionPositions, 200));
+
+    // استدعاء الدالة عند التحميل والتمرير مع تطبيق Throttle
     updateNavLogoTitle();
-    window.addEventListener("scroll", updateNavLogoTitle);
+    window.addEventListener("scroll", throttle(updateNavLogoTitle, 100));
 
     // تأثير الكتابة في قسم البطل
     const heroSubtitle = document.querySelector(".hero-subtitle");
@@ -386,8 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// تغيير لون النافبار عند التمرير
-window.addEventListener("scroll", () => {
+window.addEventListener("scroll", throttle(() => {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 100) {
         navbar.style.background = "rgba(10, 10, 10, 0.8)";
@@ -396,4 +426,4 @@ window.addEventListener("scroll", () => {
         navbar.style.background = "rgba(10, 10, 10, 0.6)";
         navbar.style.backdropFilter = "blur(8px)";
     }
-});
+}, 100));
