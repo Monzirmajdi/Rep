@@ -18,13 +18,13 @@
     /* الألوان الأساسية للوضع الفاتح */
     --light-bg: #f8f9fa;
     --light-secondary-bg: #f1f1f1;
-    --light-text: #333;
-    --light-secondary-text: #555;
+    --light-text: #333333;
+    --light-secondary-text: #555555;
     --light-border: #e0e0e0;
     --light-card-bg: rgba(255, 255, 255, 0.95);
     
     /* الانتقالات */
-    --transition: all 0.3s ease;
+    --transition: all 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 html {
@@ -38,6 +38,19 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: var(--transition);
+}
+
+/* تحسينات للوصولية */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .container {
@@ -112,6 +125,8 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    z-index: 1001;
+    transition: var(--transition);
 }
 
 .bar {
@@ -232,6 +247,12 @@ body {
     position: absolute;
     animation: float 6s ease-in-out infinite;
     object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.element.loaded {
+    opacity: 1;
 }
 
 .element-1 {
@@ -289,6 +310,17 @@ body {
 }
 
 /* ---------------------- أنماط الأقسام العامة ---------------------- */
+section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 80px;
@@ -355,6 +387,37 @@ body {
 
 .skill-item span {
     font-weight: 500;
+}
+
+/* أشرطة تقدم المهارات */
+.skills-progress {
+    margin-top: 40px;
+}
+
+.skill {
+    margin-bottom: 20px;
+}
+
+.skill h4 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), #ffd700);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+    width: 0;
 }
 
 /* ---------------------- قسم الأعمال (Portfolio) ---------------------- */
@@ -494,6 +557,7 @@ body {
     overflow-y: auto;
     position: relative;
     background: var(--dark-bg);
+    transition: var(--transition);
 }
 
 .close {
@@ -505,6 +569,7 @@ body {
     position: absolute;
     top: 20px;
     right: 30px;
+    transition: var(--transition);
 }
 
 .close:hover {
@@ -540,6 +605,12 @@ body {
     height: 180px;
     object-fit: cover;
     border-bottom: 1px solid rgba(244, 196, 48, 0.1);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.project-image.loaded {
+    opacity: 1;
 }
 
 .project-info {
@@ -756,6 +827,11 @@ body {
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.project-images-grid .gallery-image:hover {
+    transform: scale(1.03);
 }
 
 .project-preview-image {
@@ -921,6 +997,10 @@ body.light-mode .bar {
     background: var(--light-text) !important;
 }
 
+body.light-mode .progress-bar {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
 /* ---------------------- الرسوم المتحركة ---------------------- */
 @keyframes slideUp {
     to {
@@ -973,7 +1053,7 @@ body.light-mode .bar {
         width: 100%;
         height: calc(100vh - 70px);
         text-align: center;
-        transition: 0.3s;
+        transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
         padding-top: 50px;
     }
 
@@ -996,7 +1076,6 @@ body.light-mode .bar {
 
     .hamburger {
         display: flex;
-        z-index: 1001;
     }
 
     .hamburger.active .bar:nth-child(2) {
