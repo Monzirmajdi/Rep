@@ -1050,11 +1050,11 @@ body.light-mode .element-1 {
 }
 
 body.light-mode .element-2 {
-    filter: brightness(0.7) contrast(1.3);
+    filter: brightness(0) contrast(1.3);
 }
 
 body.light-mode .element-3 {
-    filter: brightness(0.8) contrast(1.2);
+    filter: brightness(0) contrast(1.2);
 }
 /* ---------------------- التصميم المتجاوب ---------------------- */
 @media (max-width: 768px) {
