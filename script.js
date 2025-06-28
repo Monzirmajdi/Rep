@@ -69,10 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             isTypingComplete = true;
         }
-
-        const themeToggle = document.querySelector(".theme-toggle");
-const body = document.body;
-  // Theme toggle functionality
+    }
+// Theme toggle functionality
 const themeToggle = document.querySelector(".theme-toggle");
 const body = document.body;
 
@@ -128,7 +126,9 @@ if (themeToggle) {
         }
         updateThemeIcon();
     });
+}
 
+// Portfolio Modal Functionality يبدأ من هنا...
 
         // تحميل التفضيل المحفوظ عند بدء التشغيل
         if (localStorage.getItem('page-theme') === 'light') {
