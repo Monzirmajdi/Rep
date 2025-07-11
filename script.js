@@ -397,10 +397,10 @@ function showProjectList(category) {
                 title: "Client Deck",
                 description: "Brand strategy presentation",
                 tools: "PowerPoint, Illustrator",
-                previewImage: "images/presentations/client/preview.webp",
+                previewImage: "images/presentations/unilab/preview.webp",
                 slides: [
-                    "images/presentations/client/slide1.webp",
-                    "images/presentations/client/slide2.webp"
+                    "images/presentations/unilab/slide1.webp",
+                    "images/presentations/unilab/slide2.webp"
                 ]
             }]
         }
