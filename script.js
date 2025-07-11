@@ -193,7 +193,9 @@ function showProjectList(category) {
             card.addEventListener("click", (e) => {
                 const cat = e.currentTarget.dataset.category;
                 const idx = parseInt(e.currentTarget.dataset.index);
-                showProjectDetails(cat, idx);
+                cat === 'brand-presentation' 
+                    ? showBrandPresentation(portfolioData[cat].items[idx])
+                    : showProjectDetails(cat, idx);
             });
         });
     });
@@ -388,15 +390,10 @@ function showProjectList(category) {
                     images: []
                 }*/
             ]
-        }
-    },
-        
-// FIND THIS LINE:
-
-    "brand-presentation": {
-        title: "Brand Presentations",
-        items: [
-            {
+        },
+        "brand-presentation": {
+            title: "Brand Presentations",
+            items: [{
                 title: "Client Deck",
                 description: "Brand strategy presentation",
                 tools: "PowerPoint, Illustrator",
@@ -405,10 +402,10 @@ function showProjectList(category) {
                     "images/presentations/client/slide1.webp",
                     "images/presentations/client/slide2.webp"
                 ]
-            }
-        ]
-    }
-}; // <-- BEFORE this closing brace
+            }]
+        }
+    };
+
     // Function to populate card previews
     function populateCardPreviews() {
         document.querySelectorAll(".portfolio-category").forEach(categoryDiv => {
@@ -475,12 +472,7 @@ function showProjectList(category) {
                 card.addEventListener("click", (e) => {
                     const cat = e.currentTarget.dataset.category;
                     const idx = parseInt(e.currentTarget.dataset.index);
-                    
-                    if (cat === 'brand-presentation') {
-                        showBrandPresentation(portfolioData[cat].items[idx]);
-                    } else {
-                        showProjectDetails(cat, idx);
-                    }
+                    showProjectDetails(cat, idx);
                 });
             });
         });
@@ -576,59 +568,12 @@ function showProjectList(category) {
             }, modalTransitionDuration);
         }
     });
+
     // إضافة الوظائف التي كانت خارج DOMContentLoaded هنا
     // Navbar background on scroll - هذا الجزء كان موجوداً بالفعل ولكن خارج الـ DOMContentLoaded الرئيسي
     // تم نقله إلى بداية الملف (بالتحديد، سيتم استبداله بالـ window.addEventListener("scroll") الذي بالأسفل)
 });
-function showBrandPresentation(project) {
-    const isLightMode = document.body.classList.contains('light-mode');
-    
-    const htmlContent = `
-        <div class="brand-presentation-container ${isLightMode ? 'light-mode' : ''}">
-            <button id="back-to-projects-btn" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i> Back
-            </button>
-            <h3>${project.title}</h3>
-            <div class="presentation-viewer">
-                <div class="slide-counter">1 of ${project.slides.length}</div>
-                <div class="slides-container">
-                    ${project.slides.map((slide, idx) => `
-                        <div class="presentation-slide">
-                            <img src="${slide}" alt="Slide ${idx+1}" loading="lazy">
-                            <div class="slide-number">${idx+1}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-    
-    updateContentWithFade(modalGallery, htmlContent, () => {
-        initPresentationScroller();
-        
-        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
-            showProjectList('brand-presentation');
-        });
-    });
-}
 
-function initPresentationScroller() {
-    const container = document.querySelector('.slides-container');
-    const counter = document.querySelector('.slide-counter');
-    const slides = document.querySelectorAll('.presentation-slide');
-    
-    if (!container || !counter) return;
-    
-    container.addEventListener('scroll', () => {
-        const scrollPos = container.scrollTop + (container.clientHeight / 2);
-        slides.forEach((slide, index) => {
-            if (slide.offsetTop <= scrollPos && 
-                (slide.offsetTop + slide.offsetHeight) > scrollPos) {
-                counter.textContent = `${index+1} of ${slides.length}`;
-            }
-        });
-    });
-}
 // هذا الجزء سيتم إزالته أو دمجه
 // Navbar background on scroll (هذا كان موجوداً ككتلة منفصلة)
 window.addEventListener("scroll", () => {
@@ -641,3 +586,41 @@ window.addEventListener("scroll", () => {
         navbar.style.backdropFilter = "blur(8px)";
     }
 });
+
+
+function showBrandPresentation(project) {
+    const isLightMode = document.body.classList.contains("light-mode");
+    const htmlContent = `
+        <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </button>
+        <h3 style="color: #f4c430; margin-bottom: 10px;">${project.title}</h3>
+        <p style="color: #ccc; margin-bottom: 20px;">${project.description}</p>
+        <div class="brand-presentation-container ${isLightMode ? "light-mode" : ""}">
+            <div class="slides-container">
+                ${project.slides.map(slide => `
+                    <img src="${slide}" class="presentation-slide" alt="${project.title} slide">
+                `).join("")}
+            </div>
+        </div>
+    `;
+    modal.style.display = "block";
+    void modal.offsetWidth;
+    modal.classList.add("show-modal");
+    updateContentWithFade(modalGallery, htmlContent, () => {
+        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
+            showProjectList("brand-presentation"); // Assuming this is the category for presentations
+        });
+        initPresentationScroller();
+    });
+}
+
+function initPresentationScroller() {
+    const slidesContainer = document.querySelector(".slides-container");
+    if (slidesContainer) {
+        // Optional: Add any specific scroll-related logic here if needed
+        // For example, tracking current slide in view, etc.
+    }
+}
+
+
