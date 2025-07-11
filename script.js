@@ -575,7 +575,7 @@ function showProjectList(category) {
                 "images/images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_6.webp",
                 "images/images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_7.webp",
                 "images/images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_8.webp",
-                "images/images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_9.webp"
+                "images/images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_9.webp",
                 
                 // أضف بقية الشرائح هنا
             ]
