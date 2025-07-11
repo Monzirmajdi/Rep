@@ -471,18 +471,20 @@ function showProjectList(category) {
         void modal.offsetWidth;
         modal.classList.add("show-modal");
         updateContentWithFade(modalGallery, htmlContent, () => {
-                    document.querySelectorAll(".project-card").forEach(card => {
-    card.addEventListener("click", (e) => {
-        const cat = e.currentTarget.dataset.category;
-        const idx = parseInt(e.currentTarget.dataset.index);
-        
-        if (cat === 'brand-presentation') {
-            showBrandPresentation(portfolioData[cat].items[idx]);
-        } else {
-            showProjectDetails(cat, idx);
-        }
-    });
-});
+            document.querySelectorAll(".project-card").forEach(card => {
+                card.addEventListener("click", (e) => {
+                    const cat = e.currentTarget.dataset.category;
+                    const idx = parseInt(e.currentTarget.dataset.index);
+                    
+                    if (cat === 'brand-presentation') {
+                        showBrandPresentation(portfolioData[cat].items[idx]);
+                    } else {
+                        showProjectDetails(cat, idx);
+                    }
+                });
+            });
+        });
+    }
 
    function showProjectDetails(category, projectIndex) {
     const data = portfolioData[category];
@@ -574,12 +576,15 @@ function showProjectList(category) {
             }, modalTransitionDuration);
         }
     });
-        // PASTE THIS CODE AFTER ALL OTHER FUNCTIONS BUT BEFORE:
-// document.addEventListener("DOMContentLoaded", () => {
-
+    // إضافة الوظائف التي كانت خارج DOMContentLoaded هنا
+    // Navbar background on scroll - هذا الجزء كان موجوداً بالفعل ولكن خارج الـ DOMContentLoaded الرئيسي
+    // تم نقله إلى بداية الملف (بالتحديد، سيتم استبداله بالـ window.addEventListener("scroll") الذي بالأسفل)
+});
 function showBrandPresentation(project) {
+    const isLightMode = document.body.classList.contains('light-mode');
+    
     const htmlContent = `
-        <div class="brand-presentation-container">
+        <div class="brand-presentation-container ${isLightMode ? 'light-mode' : ''}">
             <button id="back-to-projects-btn" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back
             </button>
@@ -589,7 +594,7 @@ function showBrandPresentation(project) {
                 <div class="slides-container">
                     ${project.slides.map((slide, idx) => `
                         <div class="presentation-slide">
-                            <img src="${slide}" alt="Slide ${idx+1}">
+                            <img src="${slide}" alt="Slide ${idx+1}" loading="lazy">
                             <div class="slide-number">${idx+1}</div>
                         </div>
                     `).join('')}
@@ -600,24 +605,30 @@ function showBrandPresentation(project) {
     
     updateContentWithFade(modalGallery, htmlContent, () => {
         initPresentationScroller();
+        
+        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
+            showProjectList('brand-presentation');
+        });
     });
 }
 
 function initPresentationScroller() {
     const container = document.querySelector('.slides-container');
     const counter = document.querySelector('.slide-counter');
+    const slides = document.querySelectorAll('.presentation-slide');
+    
+    if (!container || !counter) return;
     
     container.addEventListener('scroll', () => {
-        const currentSlide = Math.round(container.scrollTop / container.clientHeight) + 1;
-        counter.textContent = `${currentSlide} of ${container.children.length}`;
+        const scrollPos = container.scrollTop + (container.clientHeight / 2);
+        slides.forEach((slide, index) => {
+            if (slide.offsetTop <= scrollPos && 
+                (slide.offsetTop + slide.offsetHeight) > scrollPos) {
+                counter.textContent = `${index+1} of ${slides.length}`;
+            }
+        });
     });
-}        
-
-    // إضافة الوظائف التي كانت خارج DOMContentLoaded هنا
-    // Navbar background on scroll - هذا الجزء كان موجوداً بالفعل ولكن خارج الـ DOMContentLoaded الرئيسي
-    // تم نقله إلى بداية الملف (بالتحديد، سيتم استبداله بالـ window.addEventListener("scroll") الذي بالأسفل)
-});
-
+}
 // هذا الجزء سيتم إزالته أو دمجه
 // Navbar background on scroll (هذا كان موجوداً ككتلة منفصلة)
 window.addEventListener("scroll", () => {
