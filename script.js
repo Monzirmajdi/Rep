@@ -193,9 +193,7 @@ function showProjectList(category) {
             card.addEventListener("click", (e) => {
                 const cat = e.currentTarget.dataset.category;
                 const idx = parseInt(e.currentTarget.dataset.index);
-                cat === 'brand-presentation' 
-                    ? showBrandPresentation(portfolioData[cat].items[idx])
-                    : showProjectDetails(cat, idx);
+                showProjectDetails(cat, idx);
             });
         });
     });
@@ -392,21 +390,32 @@ function showProjectList(category) {
             ]
         },
         "brand-presentation": {
-            title: "Brand Presentations",
-            items: [{
-                title: "Unilab",
-                description: "Brand strategy presentation",
-                tools: "PowerPoint, Illustrator",
-                previewImage: "images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_0.webp",
-                slides: [
-                    "images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_0.webp",
-                    "images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_1.webp",
-                    "images/presentations/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_10.webp",
-                    "images/presentations/slide1.webp",
-                    "images/presentations/slide1.webp",
-                    "images/presentationsslide2.webp"
-                ]
-            }]
+            title: "Brand Presentation",
+            items: [
+                {
+                    title: "Unilab Medical Equipment",
+                    description: "Complete brand identity presentation for medical equipment company showcasing logo design, color palette, typography, and brand applications",
+                    tools: "Adobe Illustrator, Adobe InDesign, Adobe Photoshop",
+                    previewImage: "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_0.webp",
+                    slides: [
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_0.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_1.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_2.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_3.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_4.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_5.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_6.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_7.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_8.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_9.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_10.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_11.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_12.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_13.webp",
+                        "images/Branding/Unilab/_storage_emulated_0_Android_data_com.adobe.reader_files_Pictures_Adobe Acrobat Exports_unilab Brand Identity presentation_14.webp"
+                    ]
+                }
+            ]
         }
     };
 
@@ -476,9 +485,132 @@ function showProjectList(category) {
                 card.addEventListener("click", (e) => {
                     const cat = e.currentTarget.dataset.category;
                     const idx = parseInt(e.currentTarget.dataset.index);
-                    showProjectDetails(cat, idx);
+                    
+                    // التحقق من نوع القسم لتحديد طريقة العرض
+                    if (cat === "brand-presentation") {
+                        showBrandPresentationDetails(cat, idx);
+                    } else {
+                        showProjectDetails(cat, idx);
+                    }
                 });
             });
+        });
+    }
+
+    // وظيفة خاصة لعرض تفاصيل مشاريع Brand Presentation
+    function showBrandPresentationDetails(category, projectIndex) {
+        const data = portfolioData[category];
+        const project = data.items[projectIndex];
+        if (!project || !project.slides) return;
+
+        // إخفاء المودال الحالي
+        modal.classList.remove("show-modal");
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 300);
+
+        // إنشاء مودال جديد للعرض التقديمي
+        let presentationModal = document.getElementById("brand-presentation-modal");
+        if (!presentationModal) {
+            presentationModal = document.createElement("div");
+            presentationModal.id = "brand-presentation-modal";
+            presentationModal.className = "brand-presentation-modal";
+            document.body.appendChild(presentationModal);
+        }
+
+        const slidesHTML = project.slides.map((slide, index) => `
+            <div class="slide-item" data-slide="${index + 1}">
+                <img src="${slide}" 
+                     alt="${project.title} - Slide ${index + 1}" 
+                     class="slide-image"
+                     loading="lazy"
+                     onerror="this.src='images/placeholder.png'">
+            </div>
+        `).join("");
+
+        presentationModal.innerHTML = `
+            <div class="brand-presentation-content">
+                <div class="presentation-controls">
+                    <button class="back-to-projects-presentation">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Projects
+                    </button>
+                    <h2 class="presentation-title">${project.title}</h2>
+                    <div class="presentation-close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="slides-container" id="slides-container">
+                    ${slidesHTML}
+                </div>
+                <div class="slide-counter" id="slide-counter">
+                    1 of ${project.slides.length}
+                </div>
+            </div>
+        `;
+
+        // عرض المودال الجديد
+        presentationModal.style.display = "block";
+        setTimeout(() => {
+            presentationModal.classList.add("show-modal");
+        }, 50);
+
+        // إعداد العداد والتمرير
+        const slidesContainer = document.getElementById("slides-container");
+        const slideCounter = document.getElementById("slide-counter");
+        
+        function updateSlideCounter() {
+            const slides = slidesContainer.querySelectorAll(".slide-item");
+            const containerHeight = slidesContainer.clientHeight;
+            const scrollTop = slidesContainer.scrollTop;
+            
+            let currentSlide = 1;
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop - slidesContainer.offsetTop;
+                const slideBottom = slideTop + slide.offsetHeight;
+                const viewportCenter = scrollTop + containerHeight / 2;
+                
+                if (viewportCenter >= slideTop && viewportCenter <= slideBottom) {
+                    currentSlide = index + 1;
+                }
+            });
+            
+            slideCounter.textContent = `${currentSlide} of ${project.slides.length}`;
+        }
+
+        // تحديث العداد عند التمرير
+        slidesContainer.addEventListener("scroll", updateSlideCounter);
+        
+        // تحديث العداد عند التحميل
+        setTimeout(updateSlideCounter, 100);
+
+        // إعداد أزرار التحكم
+        const backButton = presentationModal.querySelector(".back-to-projects-presentation");
+        const closeButton = presentationModal.querySelector(".presentation-close");
+
+        backButton.addEventListener("click", () => {
+            presentationModal.classList.remove("show-modal");
+            setTimeout(() => {
+                presentationModal.style.display = "none";
+                showProjectList(category);
+            }, 400);
+        });
+
+        closeButton.addEventListener("click", () => {
+            presentationModal.classList.remove("show-modal");
+            setTimeout(() => {
+                presentationModal.style.display = "none";
+            }, 400);
+        });
+
+        // إغلاق عند النقر خارج المحتوى
+        presentationModal.addEventListener("click", (e) => {
+            if (e.target === presentationModal) {
+                presentationModal.classList.remove("show-modal");
+                setTimeout(() => {
+                    presentationModal.style.display = "none";
+                }, 400);
+            }
         });
     }
 
@@ -590,41 +722,3 @@ window.addEventListener("scroll", () => {
         navbar.style.backdropFilter = "blur(8px)";
     }
 });
-
-
-function showBrandPresentation(project) {
-    const isLightMode = document.body.classList.contains("light-mode");
-    const htmlContent = `
-        <button id="back-to-projects-btn" class="btn btn-primary" style="margin-bottom: 20px;">
-            <i class="fas fa-arrow-left"></i> Back to Projects
-        </button>
-        <h3 style="color: #f4c430; margin-bottom: 10px;">${project.title}</h3>
-        <p style="color: #ccc; margin-bottom: 20px;">${project.description}</p>
-        <div class="brand-presentation-container ${isLightMode ? "light-mode" : ""}">
-            <div class="slides-container">
-                ${project.slides.map(slide => `
-                    <img src="${slide}" class="presentation-slide" alt="${project.title} slide">
-                `).join("")}
-            </div>
-        </div>
-    `;
-    modal.style.display = "block";
-    void modal.offsetWidth;
-    modal.classList.add("show-modal");
-    updateContentWithFade(modalGallery, htmlContent, () => {
-        document.getElementById("back-to-projects-btn").addEventListener("click", () => {
-            showProjectList("brand-presentation"); // Assuming this is the category for presentations
-        });
-        initPresentationScroller();
-    });
-}
-
-function initPresentationScroller() {
-    const slidesContainer = document.querySelector(".slides-container");
-    if (slidesContainer) {
-        // Optional: Add any specific scroll-related logic here if needed
-        // For example, tracking current slide in view, etc.
-    }
-}
-
-
