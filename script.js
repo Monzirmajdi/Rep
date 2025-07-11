@@ -392,12 +392,7 @@ function showProjectList(category) {
     },
         
 // FIND THIS LINE:
-const portfolioData = {
-    "social-media": { ... },
-    "branding": { ... },
-    "ui-ux": { ... },
-    
-    // ADD THIS NEW CATEGORY AFTER "ui-ux" BUT BEFORE THE CLOSING };
+
     "brand-presentation": {
         title: "Brand Presentations",
         items: [
