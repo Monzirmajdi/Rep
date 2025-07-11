@@ -389,8 +389,31 @@ function showProjectList(category) {
                 }*/
             ]
         }
-    };
-
+    },
+        
+// FIND THIS LINE:
+const portfolioData = {
+    "social-media": { ... },
+    "branding": { ... },
+    "ui-ux": { ... },
+    
+    // ADD THIS NEW CATEGORY AFTER "ui-ux" BUT BEFORE THE CLOSING };
+    "brand-presentation": {
+        title: "Brand Presentations",
+        items: [
+            {
+                title: "Client Deck",
+                description: "Brand strategy presentation",
+                tools: "PowerPoint, Illustrator",
+                previewImage: "images/presentations/client/preview.webp",
+                slides: [
+                    "images/presentations/client/slide1.webp",
+                    "images/presentations/client/slide2.webp"
+                ]
+            }
+        ]
+    }
+}; // <-- BEFORE this closing brace
     // Function to populate card previews
     function populateCardPreviews() {
         document.querySelectorAll(".portfolio-category").forEach(categoryDiv => {
@@ -453,15 +476,14 @@ function showProjectList(category) {
         void modal.offsetWidth;
         modal.classList.add("show-modal");
         updateContentWithFade(modalGallery, htmlContent, () => {
-            document.querySelectorAll(".project-card").forEach(card => {
-                card.addEventListener("click", (e) => {
-                    const cat = e.currentTarget.dataset.category;
-                    const idx = parseInt(e.currentTarget.dataset.index);
-                    showProjectDetails(cat, idx);
-                });
-            });
-        });
-    }
+                    // REPLACE IT WITH:
+        if (cat === 'brand-presentation') {
+            showBrandPresentation(portfolioData[cat].items[idx]);
+        } else {
+            showProjectDetails(cat, idx);
+        }
+    });
+});
 
    function showProjectDetails(category, projectIndex) {
     const data = portfolioData[category];
@@ -553,6 +575,44 @@ function showProjectList(category) {
             }, modalTransitionDuration);
         }
     });
+        // PASTE THIS CODE AFTER ALL OTHER FUNCTIONS BUT BEFORE:
+// document.addEventListener("DOMContentLoaded", () => {
+
+function showBrandPresentation(project) {
+    const htmlContent = `
+        <div class="brand-presentation-container">
+            <button id="back-to-projects-btn" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h3>${project.title}</h3>
+            <div class="presentation-viewer">
+                <div class="slide-counter">1 of ${project.slides.length}</div>
+                <div class="slides-container">
+                    ${project.slides.map((slide, idx) => `
+                        <div class="presentation-slide">
+                            <img src="${slide}" alt="Slide ${idx+1}">
+                            <div class="slide-number">${idx+1}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    updateContentWithFade(modalGallery, htmlContent, () => {
+        initPresentationScroller();
+    });
+}
+
+function initPresentationScroller() {
+    const container = document.querySelector('.slides-container');
+    const counter = document.querySelector('.slide-counter');
+    
+    container.addEventListener('scroll', () => {
+        const currentSlide = Math.round(container.scrollTop / container.clientHeight) + 1;
+        counter.textContent = `${currentSlide} of ${container.children.length}`;
+    });
+}        
 
     // إضافة الوظائف التي كانت خارج DOMContentLoaded هنا
     // Navbar background on scroll - هذا الجزء كان موجوداً بالفعل ولكن خارج الـ DOMContentLoaded الرئيسي
