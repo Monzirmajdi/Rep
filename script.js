@@ -471,7 +471,11 @@ function showProjectList(category) {
         void modal.offsetWidth;
         modal.classList.add("show-modal");
         updateContentWithFade(modalGallery, htmlContent, () => {
-                    // REPLACE IT WITH:
+                    document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("click", (e) => {
+        const cat = e.currentTarget.dataset.category;
+        const idx = parseInt(e.currentTarget.dataset.index);
+        
         if (cat === 'brand-presentation') {
             showBrandPresentation(portfolioData[cat].items[idx]);
         } else {
